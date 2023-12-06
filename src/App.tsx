@@ -6,7 +6,7 @@ import "./globals.css";
 function App() {
   return (
     <ThemeProvider>
-      <main>
+      <main className="">
         <Outlet />
       </main>
     </ThemeProvider>
