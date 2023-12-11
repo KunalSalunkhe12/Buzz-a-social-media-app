@@ -13,9 +13,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCreateUserAccount } from "@/lib/react-query/queries";
+import { useToast } from "@/components/ui/use-toast";
+import { useUserContext } from "@/context/user/UserContext";
 
 const SignupForm = () => {
+  const { toast } = useToast();
+  const { mutateAsync: createUserAccount, isPending: isCreatingUser } =
+    useCreateUserAccount();
+  const { saveUser } = useUserContext();
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
@@ -26,9 +35,22 @@ const SignupForm = () => {
     },
   });
 
-  function handleSignup(values: z.infer<typeof SignupSchema>) {
-    console.log(values);
-  }
+  const handleSignup = async (values: z.infer<typeof SignupSchema>) => {
+    try {
+      const { data } = await createUserAccount(values);
+
+      if (!data) {
+        toast({
+          variant: "destructive",
+          title: "Sign up failed. Please try again..",
+        });
+      }
+      saveUser(data);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -93,7 +115,7 @@ const SignupForm = () => {
             )}
           />
           <Button type="submit" className="bg-primary w-full">
-            Submit
+            {isCreatingUser ? "Submitting..." : "Submit"}
           </Button>
         </form>
         <div className="flex justify-center gap-2 mt-4">
