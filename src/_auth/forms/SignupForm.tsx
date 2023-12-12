@@ -43,6 +43,7 @@ const SignupForm = () => {
         saveUser(data);
         toast({
           title: "Sign up Successful..!!",
+          variant: "primary",
         });
         navigate("/");
       },

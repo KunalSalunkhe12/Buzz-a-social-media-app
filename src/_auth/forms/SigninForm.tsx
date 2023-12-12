@@ -1,5 +1,6 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 
@@ -14,16 +15,25 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link, useNavigate } from "react-router-dom";
 import { useSignInAccount } from "@/lib/react-query/queries";
 import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/user/UserContext";
+import { useEffect } from "react";
 
 const SignupForm = () => {
   const { toast } = useToast();
   const { mutate: signInAccount, isPending: isSigning } = useSignInAccount();
   const { saveUser } = useUserContext();
   const navigate = useNavigate();
+  const { state: locationState } = useLocation();
+
+  useEffect(() => {
+    if (locationState) {
+      toast({
+        title: locationState?.message,
+      });
+    }
+  }, []);
 
   const form = useForm<z.infer<typeof SigninSchema>>({
     resolver: zodResolver(SigninSchema),
@@ -40,6 +50,7 @@ const SignupForm = () => {
         saveUser(data);
         toast({
           title: "Sign in Successful",
+          variant: "primary",
         });
         navigate("/");
       },
