@@ -1,6 +1,8 @@
-import { TUser } from "@/types";
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+
+import { TUser } from "@/types";
 import { toast } from "@/components/ui/use-toast";
 
 const INITIAL_USER = {
@@ -36,6 +38,7 @@ const UserContext = createContext<TUserContext>(INITIAL_CONTEXT_STATE);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<TUser>(INITIAL_USER_STATE);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = user.token;
@@ -46,11 +49,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         removeUser();
         toast({
           title: "Session expired. Please Sign In again",
-          variant: "destructive",
         });
+        navigate("/sign-in");
       }
     }
-  });
+  }, [user, navigate]);
 
   const saveUser = (userData: TUser) => {
     localStorage.setItem("profile", JSON.stringify(userData));

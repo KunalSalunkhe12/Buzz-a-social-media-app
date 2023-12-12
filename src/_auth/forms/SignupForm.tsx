@@ -1,6 +1,7 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import axios, { AxiosError } from "axios";
 
 import { SignupSchema } from "@/lib/validation";
 import { Button } from "@/components/ui/button";
@@ -36,20 +37,28 @@ const SignupForm = () => {
   });
 
   const handleSignup = async (values: z.infer<typeof SignupSchema>) => {
-    try {
-      const { data } = await createUserAccount(values);
-
-      if (!data) {
+    createUserAccount(values, {
+      onSuccess(response) {
+        const { data } = response;
+        saveUser(data);
         toast({
-          variant: "destructive",
-          title: "Sign up failed. Please try again..",
+          title: "Sign up Successful..!!",
         });
-      }
-      saveUser(data);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+        navigate("/");
+      },
+      onError(error: AxiosError | Error) {
+        if (axios.isAxiosError(error)) {
+          toast({
+            title: error.response?.data.message,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Couldn't Sign up. Please try again.",
+          });
+        }
+      },
+    });
   };
 
   return (

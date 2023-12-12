@@ -1,6 +1,7 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import axios, { AxiosError } from "axios";
 
 import { SigninSchema } from "@/lib/validation";
 import { Button } from "@/components/ui/button";
@@ -20,8 +21,7 @@ import { useUserContext } from "@/context/user/UserContext";
 
 const SignupForm = () => {
   const { toast } = useToast();
-  const { mutateAsync: signInAccount, isPending: isSigning } =
-    useSignInAccount();
+  const { mutate: signInAccount, isPending: isSigning } = useSignInAccount();
   const { saveUser } = useUserContext();
   const navigate = useNavigate();
 
@@ -34,20 +34,28 @@ const SignupForm = () => {
   });
 
   const handleSignup = async (values: z.infer<typeof SigninSchema>) => {
-    try {
-      const { data } = await signInAccount(values);
-
-      if (!data) {
+    signInAccount(values, {
+      onSuccess(response) {
+        const { data } = response;
+        saveUser(data);
         toast({
-          variant: "destructive",
-          title: "Sign up failed. Please try again..",
+          title: "Sign in Successful",
         });
-      }
-      saveUser(data);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+        navigate("/");
+      },
+      onError(error: AxiosError | Error) {
+        if (axios.isAxiosError(error)) {
+          toast({
+            title: error.response?.data.message,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Couldn't Sign in. Please try again.",
+          });
+        }
+      },
+    });
   };
 
   return (
