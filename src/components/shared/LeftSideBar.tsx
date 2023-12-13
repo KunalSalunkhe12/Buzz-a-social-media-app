@@ -10,7 +10,7 @@ const LeftSideBar = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className="w-[240px] hidden md:flex flex-col justify-between p-6">
+    <nav className="w-[200px] hidden md:flex flex-col justify-between p-6">
       <div className="flex flex-col gap-11">
         <Link to="/">
           <p className="text-secondary font-bold text-2xl">Buzz!</p>

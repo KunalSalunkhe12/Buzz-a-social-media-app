@@ -7,7 +7,7 @@ const TopBar = () => {
   return (
     <section className="sticky top-0 flex md:hidden justify-between items-center p-2">
       <Link to="/">
-        <p className="text-primary font-bold text-xl">Buzz</p>
+        <p className="font-bold text-xl text-secondary">Buzz</p>
       </Link>
       <div className="flex justify-center items-center">
         <Button
@@ -15,13 +15,17 @@ const TopBar = () => {
           variant="ghost"
           onClick={removeUser}
         >
-          <img src="/assets/icons/logout.svg" alt="logout" />
+          <img
+            className="h-5 w-5"
+            src="/assets/icons/logout.svg"
+            alt="logout"
+          />
         </Button>
         <Link to={`/profile/${user.result._id}`}>
           <img
             src="/assets/icons/profile-placeholder.svg"
             alt="profile"
-            className="h-6 w-6 rounded-full"
+            className="h-5 w-5 rounded-full"
           />
         </Link>
       </div>
