@@ -1,17 +1,29 @@
 import { useUserContext } from "@/context/user/UserContext";
 import { Outlet, Navigate } from "react-router-dom";
+import BottomBar from "@/components/shared/BottomBar";
+import LeftSideBar from "@/components/shared/LeftSideBar";
+import TopBar from "@/components/shared/TopBar";
 
 const RootLayout = () => {
   const { user } = useUserContext();
 
   return (
-    <section>
+    <div>
       {user.token ? (
-        <Outlet />
+        <>
+          <TopBar />
+          <LeftSideBar />
+
+          <section>
+            <Outlet />
+          </section>
+
+          <BottomBar />
+        </>
       ) : (
-        <Navigate to="/sign-in" state={{ message: "Please Sign in first.." }} />
+        <Navigate to="/sign-in" />
       )}
-    </section>
+    </div>
   );
 };
 

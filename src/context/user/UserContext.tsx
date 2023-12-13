@@ -49,6 +49,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         removeUser();
         toast({
           title: "Session expired. Please Sign In again",
+          variant: "destructive",
         });
         navigate("/sign-in");
       }
