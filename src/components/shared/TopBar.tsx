@@ -5,7 +5,7 @@ import { useUserContext } from "@/context/user/UserContext";
 const TopBar = () => {
   const { user, removeUser } = useUserContext();
   return (
-    <section className="flex md:hidden justify-between items-center p-2">
+    <section className="sticky top-0 flex md:hidden justify-between items-center p-2">
       <Link to="/">
         <p className="text-primary font-bold text-xl">Buzz</p>
       </Link>
