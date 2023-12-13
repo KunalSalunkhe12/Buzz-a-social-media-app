@@ -65,13 +65,17 @@ const SignupForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-[420px]">
-        <h2 className="text-xl md:text-2xl font-bold text-center">
-          Create your Account
-        </h2>
-        <p className="text-sm text-gray-400 text-center my-2">
-          To use Buzz, Enter your details.
-        </p>
-        <form onSubmit={form.handleSubmit(handleSignup)} className="space-y-4">
+        <div className="text-center">
+          <p className="text-secondary font-bold text-xl md:text-2xl">Buzz!</p>
+          <h2 className="text-lg md:text-xl font-bold ">Create your Account</h2>
+          <p className="text-xs text-gray-400 my-1">
+            To use Buzz, Enter your details.
+          </p>
+        </div>
+        <form
+          onSubmit={form.handleSubmit(handleSignup)}
+          className="space-y-4 text"
+        >
           <FormField
             control={form.control}
             name="name"
@@ -128,9 +132,9 @@ const SignupForm = () => {
             {isCreatingUser ? "Submitting..." : "Submit"}
           </Button>
         </form>
-        <div className="flex justify-center gap-2 mt-4">
+        <div className="flex justify-center gap-2 mt-4 text-sm">
           <p>Already have an account?</p>
-          <Link to="/sign-in" className="text-primary">
+          <Link to="/sign-in" className="text-secondary">
             Sign in
           </Link>
         </div>

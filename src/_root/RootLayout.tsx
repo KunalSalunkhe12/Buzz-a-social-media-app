@@ -8,13 +8,13 @@ const RootLayout = () => {
   const { user } = useUserContext();
 
   return (
-    <div>
+    <div className="w-full h-full md:flex">
       {user.token ? (
         <>
           <TopBar />
           <LeftSideBar />
 
-          <section>
+          <section className="flex flex-1">
             <Outlet />
           </section>
 

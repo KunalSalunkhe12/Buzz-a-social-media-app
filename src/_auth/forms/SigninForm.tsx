@@ -72,10 +72,13 @@ const SignupForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-[420px]">
-        <h2 className="text-xl md:text-2xl font-bold text-center">
-          Sign In to your Account
-        </h2>
-        <p className="text-sm text-gray-400 text-center my-2">Welcome Back!</p>
+        <div className="text-center">
+          <p className="text-secondary font-bold text-xl md:text-2xl">Buzz!</p>
+          <h2 className="text-lg md:text-xl font-bold">
+            Sign In to your Account
+          </h2>
+          <p className="text-xs text-gray-400 my-1">Welcome Back!</p>
+        </div>
         <form onSubmit={form.handleSubmit(handleSignup)} className="space-y-4">
           <FormField
             control={form.control}
@@ -107,9 +110,9 @@ const SignupForm = () => {
             {isSigning ? "Submitting..." : "Submit"}
           </Button>
         </form>
-        <div className="flex justify-center gap-2 mt-4">
+        <div className="flex justify-center gap-2 mt-4 text-sm">
           <p>Don't have an account?</p>
-          <Link to="/sign-up" className="text-primary">
+          <Link to="/sign-up" className="text-secondary">
             Sign up
           </Link>
         </div>

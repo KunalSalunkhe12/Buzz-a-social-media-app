@@ -16,3 +16,9 @@ export type TUser = {
     imageUrl: string;
   };
 };
+
+export type TNavLink = {
+  imgURL: string;
+  route: string;
+  label: string;
+};
