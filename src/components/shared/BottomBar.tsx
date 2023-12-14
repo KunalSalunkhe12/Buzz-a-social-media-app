@@ -7,7 +7,7 @@ const BottomBar = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className="absolute md:hidden bottom-0 right-0 p-2 w-full">
+    <nav className="fixed md:hidden bottom-0 right-0 p-2 w-full z-50 bg-background">
       <ul className="flex justify-between">
         {bottombarLinks.map((link: TNavLink) => {
           const isActive = link.route === pathname;
