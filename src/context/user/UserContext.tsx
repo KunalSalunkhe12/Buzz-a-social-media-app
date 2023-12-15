@@ -14,6 +14,8 @@ const INITIAL_USER = {
     email: "",
     bio: "",
     imageUrl: "",
+    likedPosts: [],
+    savedPosts: [],
   },
 };
 
@@ -22,16 +24,16 @@ const INITIAL_USER_STATE = storedUserData
   ? JSON.parse(storedUserData)
   : INITIAL_USER;
 
-const INITIAL_CONTEXT_STATE = {
-  user: INITIAL_USER,
-  saveUser: () => {},
-  removeUser: () => {},
-};
-
 type TUserContext = {
   user: TUser;
   saveUser: (userData: TUser) => void;
   removeUser: () => void;
+};
+
+const INITIAL_CONTEXT_STATE = {
+  user: INITIAL_USER,
+  saveUser: () => {},
+  removeUser: () => {},
 };
 
 const UserContext = createContext<TUserContext>(INITIAL_CONTEXT_STATE);

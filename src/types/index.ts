@@ -14,6 +14,8 @@ export type TUser = {
     email: string;
     bio: string;
     imageUrl: string;
+    likedPosts: string[];
+    savedPosts: string[];
   };
 };
 
