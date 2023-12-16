@@ -24,7 +24,9 @@ export const PostSchema = z.object({
     .string()
     .min(5, { message: "Minimum 5 characters." })
     .max(2200, { message: "Maximum 2,200 caracters" }),
-  image: z.custom<File>(),
+  image: z.custom<File>((value) => value !== undefined, {
+    message: "Please add a photo",
+  }),
   location: z
     .string()
     .min(1, { message: "This field is required" })
