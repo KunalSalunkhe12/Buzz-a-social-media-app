@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TNewUser } from "@/types";
+import { TNewPost, TNewUser } from "@/types";
 
 const url = import.meta.env.VITE_API_URL;
 
@@ -19,3 +19,8 @@ export const createUserAccount = (userData: TNewUser) =>
 
 export const signInAccount = (userData: { email: string; password: string }) =>
   API.post("/user/signin", userData);
+
+export const createPost = (postData: TNewPost) =>
+  API.post("/post", postData, {
+    headers: { "content-type": "multipart/form-data" },
+  });

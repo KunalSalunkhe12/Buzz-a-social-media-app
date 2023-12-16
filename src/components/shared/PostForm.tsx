@@ -15,6 +15,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { PostSchema } from "@/lib/validation";
 import FileUploader from "./FileUploader";
+import { useCreatePost } from "@/lib/react-query/queries";
+import axios, { AxiosError } from "axios";
+import { toast } from "../ui/use-toast";
 
 const PostForm = () => {
   const navigate = useNavigate();
@@ -22,20 +25,44 @@ const PostForm = () => {
     resolver: zodResolver(PostSchema),
     defaultValues: {
       caption: "",
-      file: [],
+      image: undefined,
       location: "",
       tags: "",
     },
   });
-
-  // 2. Define a submit handler.
+  const { mutate: createPost, isPending: isCreatingPost } = useCreatePost();
   function onSubmit(values: z.infer<typeof PostSchema>) {
-    console.log(values);
+    createPost(values, {
+      onSuccess(response) {
+        const { data } = response;
+        toast({
+          title: data.message,
+          variant: "primary",
+        });
+        navigate("/");
+      },
+      onError(error: AxiosError | Error) {
+        if (axios.isAxiosError(error)) {
+          toast({
+            title: error.response?.data.message,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Couldn't add new Post. Try again",
+          });
+        }
+      },
+    });
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 "
+        encType="multipart/form-data"
+      >
         <FormField
           control={form.control}
           name="caption"
@@ -51,7 +78,7 @@ const PostForm = () => {
         />
         <FormField
           control={form.control}
-          name="file"
+          name="image"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Add Photo</FormLabel>
@@ -97,7 +124,9 @@ const PostForm = () => {
           <Button variant="outline" onClick={() => navigate(-1)}>
             Cancel
           </Button>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            {isCreatingPost ? "Submitting.." : "Submit"}
+          </Button>
         </div>
       </form>
     </Form>

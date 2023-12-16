@@ -1,9 +1,7 @@
-export type TNewUser = {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-};
+import { PostSchema, SignupSchema } from "@/lib/validation";
+import { z } from "zod";
+
+export type TNewUser = z.infer<typeof SignupSchema>;
 
 export type TUser = {
   token: string;
@@ -24,3 +22,5 @@ export type TNavLink = {
   route: string;
   label: string;
 };
+
+export type TNewPost = z.infer<typeof PostSchema>;
