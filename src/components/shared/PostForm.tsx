@@ -16,7 +16,6 @@ import { Input } from "@/components/ui/input";
 import { PostSchema } from "@/lib/validation";
 import FileUploader from "./FileUploader";
 import { useCreatePost } from "@/lib/react-query/queries";
-import axios, { AxiosError } from "axios";
 import { toast } from "../ui/use-toast";
 
 const PostForm = () => {
@@ -41,17 +40,11 @@ const PostForm = () => {
         });
         navigate("/");
       },
-      onError(error: AxiosError | Error) {
-        if (axios.isAxiosError(error)) {
-          toast({
-            title: error.response?.data.message,
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Couldn't add new Post. Try again",
-          });
-        }
+      onError(error) {
+        console.log(error);
+        toast({
+          title: "Couldn't add new Post. Try again",
+        });
       },
     });
   }

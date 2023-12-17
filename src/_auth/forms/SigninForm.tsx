@@ -2,7 +2,6 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios, { AxiosError } from "axios";
 
 import { SigninSchema } from "@/lib/validation";
 import { Button } from "@/components/ui/button";
@@ -54,17 +53,11 @@ const SignupForm = () => {
         });
         navigate("/");
       },
-      onError(error: AxiosError | Error) {
-        if (axios.isAxiosError(error)) {
-          toast({
-            title: error.response?.data.message,
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Couldn't Sign in. Please try again.",
-          });
-        }
+      onError() {
+        toast({
+          variant: "destructive",
+          title: "Couldn't Sign in. Please try again.",
+        });
       },
     });
   };
