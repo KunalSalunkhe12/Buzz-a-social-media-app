@@ -30,7 +30,7 @@ const PostCard = ({ post }: PostCardProps) => {
         <div className="h-72 lg:h-[380px] border-2 rounded-md mt-2">
           <img
             className="w-full h-full object-contain object-center"
-            src={`http://localhost:3000/${post.imageUrl}`}
+            src={post.imageUrl}
             alt="post image"
           />
         </div>

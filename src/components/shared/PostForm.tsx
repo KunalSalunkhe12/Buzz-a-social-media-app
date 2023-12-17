@@ -124,7 +124,7 @@ const PostForm = () => {
           <Button variant="outline" onClick={() => navigate(-1)}>
             Cancel
           </Button>
-          <Button type="submit">
+          <Button type="submit" disabled={isCreatingPost}>
             {isCreatingPost ? "Submitting.." : "Submit"}
           </Button>
         </div>
