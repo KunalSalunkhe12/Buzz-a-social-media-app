@@ -14,13 +14,17 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+// User
 export const createUserAccount = (userData: TNewUser) =>
   API.post("/user/signup", userData);
 
 export const signInAccount = (userData: { email: string; password: string }) =>
   API.post("/user/signin", userData);
 
+// Post
 export const createPost = (postData: TNewPost) =>
   API.post("/post", postData, {
     headers: { "content-type": "multipart/form-data" },
   });
+
+export const getRecentPosts = () => API.get("/post");

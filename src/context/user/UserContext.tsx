@@ -2,10 +2,10 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-import { TUser } from "@/types";
+import { TProfile } from "@/types";
 import { toast } from "@/components/ui/use-toast";
 
-const INITIAL_USER = {
+const INITIAL_USER_PROFILE = {
   token: "",
   result: {
     _id: "",
@@ -20,18 +20,18 @@ const INITIAL_USER = {
 };
 
 const storedUserData = localStorage.getItem("profile");
-const INITIAL_USER_STATE = storedUserData
+const INITIAL_USER_PROFILE_STATE = storedUserData
   ? JSON.parse(storedUserData)
-  : INITIAL_USER;
+  : INITIAL_USER_PROFILE;
 
 type TUserContext = {
-  user: TUser;
-  saveUser: (userData: TUser) => void;
+  user: TProfile;
+  saveUser: (userData: TProfile) => void;
   removeUser: () => void;
 };
 
 const INITIAL_CONTEXT_STATE = {
-  user: INITIAL_USER,
+  user: INITIAL_USER_PROFILE,
   saveUser: () => {},
   removeUser: () => {},
 };
@@ -39,7 +39,7 @@ const INITIAL_CONTEXT_STATE = {
 const UserContext = createContext<TUserContext>(INITIAL_CONTEXT_STATE);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<TUser>(INITIAL_USER_STATE);
+  const [user, setUser] = useState<TProfile>(INITIAL_USER_PROFILE_STATE);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,14 +58,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [user, navigate]);
 
-  const saveUser = (userData: TUser) => {
+  const saveUser = (userData: TProfile) => {
     localStorage.setItem("profile", JSON.stringify(userData));
     setUser(userData);
   };
 
   const removeUser = () => {
     localStorage.removeItem("profile");
-    setUser(INITIAL_USER);
+    setUser(INITIAL_USER_PROFILE);
   };
 
   return (

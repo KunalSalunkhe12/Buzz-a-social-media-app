@@ -29,12 +29,14 @@ const FileUploader = ({ fieldChange }: FileUploaderProps) => {
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       {fileUrl ? (
-        <div className="flex flex-col justify-center items-center gap-4">
-          <img
-            src={fileUrl}
-            alt="Photo Preview"
-            className="h-72 lg:h-[380px] w-full rounded-md object-cover object-top"
-          />
+        <div className="flex flex-col justify-center items-center gap-4 rounded-md">
+          <div className="h-72 lg:h-[380px] border-2 rounded-md">
+            <img
+              className="w-full h-full object-contain object-center"
+              src={fileUrl}
+              alt="Photo preview"
+            />
+          </div>
           <p className="text-xs">Click or drag photo to replace</p>
         </div>
       ) : (
