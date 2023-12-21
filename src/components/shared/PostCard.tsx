@@ -11,7 +11,10 @@ const PostCard = ({ post }: PostCardProps) => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <Link to={`/profile/${post.creator._id}`} className="flex gap-4">
+        <Link
+          to={`/profile/${post.creator._id}`}
+          className="flex items-center gap-4"
+        >
           <img
             src="/assets/icons/profile-placeholder.svg"
             alt="Profile"
@@ -35,6 +38,10 @@ const PostCard = ({ post }: PostCardProps) => {
           />
         </div>
         <PostStats />
+        <div className="flex gap-3 text-sm">
+          <p>{post.creator.username}</p>
+          <p>{post.caption}</p>
+        </div>
       </div>
       <hr className="my-5" />
     </>

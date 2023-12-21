@@ -17,7 +17,7 @@ const LeftSideBar = () => {
         </Link>
         <Link
           to={`/profile/${user.result._id}`}
-          className="flex gap-4 items-center"
+          className="flex gap-2 items-center"
         >
           <img
             src="/assets/icons/profile-placeholder.svg"

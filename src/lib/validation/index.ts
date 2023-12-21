@@ -5,7 +5,8 @@ export const SignupSchema = z.object({
   username: z
     .string()
     .min(2, { message: "Username must be at least 2 characters." })
-    .max(20, { message: "Username must be at most 20 characters." }),
+    .max(20, { message: "Username must be at most 20 characters." })
+    .toLowerCase(),
   email: z.string().email(),
   password: z
     .string()
@@ -20,16 +21,10 @@ export const SigninSchema = z.object({
 });
 
 export const PostSchema = z.object({
-  caption: z
-    .string()
-    .min(5, { message: "Minimum 5 characters." })
-    .max(2200, { message: "Maximum 2,200 caracters" }),
+  caption: z.string().max(2200, { message: "Maximum 2,200 characters" }),
   image: z.custom<File>((value) => value !== undefined, {
     message: "Please add a photo",
   }),
-  location: z
-    .string()
-    .min(1, { message: "This field is required" })
-    .max(1000, { message: "Maximum 1000 characters." }),
-  tags: z.string(),
+  location: z.string().max(1000, { message: "Maximum 1000 characters." }),
+  tags: z.string().max(1000, { message: "Maximum 1000 characters" }),
 });

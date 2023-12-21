@@ -44,6 +44,7 @@ const PostForm = () => {
         console.log(error);
         toast({
           title: "Couldn't add new Post. Try again",
+          variant: "destructive",
         });
       },
     });
