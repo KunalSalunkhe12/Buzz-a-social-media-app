@@ -13,6 +13,8 @@ const INITIAL_USER_PROFILE = {
   email: "",
   bio: "",
   imageUrl: "",
+  likedPosts: [],
+  savedPosts: [],
 };
 
 type TUserContext = {
@@ -57,6 +59,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           email: data.email,
           imageUrl: data.imageUrl,
           bio: data.bio,
+          likedPosts: data.likedPosts,
+          savedPosts: data.savedPosts,
         });
       }
     } catch (error) {
@@ -65,14 +69,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token === "[]" || token === null || token === undefined) {
+    const userToken = localStorage.getItem("token");
+    if (userToken === "[]" || userToken === null || userToken === undefined) {
       return navigate("/sign-in");
     }
 
     checkAuthUser();
-    setToken(token);
-  }, []);
+    setToken(userToken);
+  }, [token]);
 
   useEffect(() => {
     if (token) {

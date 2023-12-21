@@ -7,7 +7,6 @@ type PostCardProps = {
   post: TPost;
 };
 const PostCard = ({ post }: PostCardProps) => {
-  console.log(post);
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -37,7 +36,7 @@ const PostCard = ({ post }: PostCardProps) => {
             alt="post image"
           />
         </div>
-        <PostStats />
+        <PostStats post={post} />
         <div className="flex gap-3 text-sm">
           <p>{post.creator.username}</p>
           <p>{post.caption}</p>

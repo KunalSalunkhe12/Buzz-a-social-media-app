@@ -8,10 +8,10 @@ export type TUser = {
   name: string;
   username: string;
   email: string;
-  bio?: string;
-  imageUrl?: string;
-  likedPosts?: string[];
-  savedPosts?: string[];
+  bio: string;
+  imageUrl: string;
+  likedPosts: string[];
+  savedPosts: string[];
 };
 
 export type TNavLink = {
