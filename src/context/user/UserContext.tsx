@@ -2,49 +2,83 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-import { TProfile } from "@/types";
+import { TUser } from "@/types";
+import { getCurrentUser } from "@/api";
 import { toast } from "@/components/ui/use-toast";
 
 const INITIAL_USER_PROFILE = {
-  token: "",
-  user: {
-    _id: "",
-    name: "",
-    username: "",
-    email: "",
-  },
+  _id: "",
+  name: "",
+  username: "",
+  email: "",
+  bio: "",
+  imageUrl: "",
 };
 
-const storedUserData = localStorage.getItem("profile");
-const INITIAL_USER_PROFILE_STATE = storedUserData
-  ? JSON.parse(storedUserData)
-  : INITIAL_USER_PROFILE;
-
 type TUserContext = {
-  user: TProfile;
-  saveUser: (userData: TProfile) => void;
-  removeUser: () => void;
+  user: TUser;
+  token: string;
+  saveToken: (token: string) => void;
+  removeToken: () => void;
 };
 
 const INITIAL_CONTEXT_STATE = {
   user: INITIAL_USER_PROFILE,
-  saveUser: () => {},
-  removeUser: () => {},
+  token: "",
+  saveToken: () => {},
+  removeToken: () => {},
 };
 
 const UserContext = createContext<TUserContext>(INITIAL_CONTEXT_STATE);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<TProfile>(INITIAL_USER_PROFILE_STATE);
+  const [user, setUser] = useState<TUser>(INITIAL_USER_PROFILE);
+  const [token, setToken] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = user.token;
+  const saveToken = (token: string) => {
+    localStorage.setItem("token", JSON.stringify(token));
+    setToken(token);
+  };
 
+  const removeToken = () => {
+    localStorage.removeItem("token");
+    setToken("");
+  };
+
+  const checkAuthUser = async () => {
+    try {
+      const { data } = await getCurrentUser();
+      if (data) {
+        setUser({
+          _id: data._id,
+          name: data.name,
+          username: data.username,
+          email: data.email,
+          imageUrl: data.imageUrl,
+          bio: data.bio,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token === "[]" || token === null || token === undefined) {
+      return navigate("/sign-in");
+    }
+
+    checkAuthUser();
+    setToken(token);
+  }, []);
+
+  useEffect(() => {
     if (token) {
       const decodedToken = jwtDecode(token);
       if (decodedToken.exp && decodedToken.exp * 1000 < new Date().getTime()) {
-        removeUser();
+        removeToken();
         toast({
           title: "Session expired. Please Sign In again",
           variant: "destructive",
@@ -52,20 +86,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         navigate("/sign-in");
       }
     }
-  }, [user, navigate]);
-
-  const saveUser = (userData: TProfile) => {
-    localStorage.setItem("profile", JSON.stringify(userData));
-    setUser(userData);
-  };
-
-  const removeUser = () => {
-    localStorage.removeItem("profile");
-    setUser(INITIAL_USER_PROFILE);
-  };
+  }, [user, navigate, token]);
 
   return (
-    <UserContext.Provider value={{ user, saveUser, removeUser }}>
+    <UserContext.Provider value={{ user, saveToken, removeToken, token }}>
       {children}
     </UserContext.Provider>
   );

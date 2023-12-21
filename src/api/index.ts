@@ -1,15 +1,14 @@
-import axios from "axios";
-import { TNewPost, TNewUser } from "@/types";
+import axios, { AxiosResponse } from "axios";
+import { TNewPost, TNewUser, TUser } from "@/types";
 
 const url = import.meta.env.VITE_API_URL;
 
 const API = axios.create({ baseURL: url });
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem("profile")) {
-    req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("profile") as string).token
-    }`;
+  const token = localStorage.getItem("token");
+  if (token) {
+    req.headers.Authorization = `Bearer ${JSON.parse(token)}`;
   }
   return req;
 });
@@ -20,6 +19,9 @@ export const createUserAccount = (userData: TNewUser) =>
 
 export const signInAccount = (userData: { email: string; password: string }) =>
   API.post("/user/signin", userData);
+
+export const getCurrentUser: () => Promise<AxiosResponse<TUser>> = () =>
+  API.get("/user");
 
 // Post
 export const createPost = (postData: TNewPost) =>

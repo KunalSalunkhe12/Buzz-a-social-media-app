@@ -22,7 +22,7 @@ const SignupForm = () => {
   const { toast } = useToast();
   const { mutateAsync: createUserAccount, isPending: isCreatingUser } =
     useCreateUserAccount();
-  const { saveUser } = useUserContext();
+  const { saveToken } = useUserContext();
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof SignupSchema>>({
@@ -39,7 +39,7 @@ const SignupForm = () => {
     createUserAccount(values, {
       onSuccess(response) {
         const { data } = response;
-        saveUser(data);
+        saveToken(data);
         toast({
           title: "Sign up Successful..!!",
           variant: "primary",

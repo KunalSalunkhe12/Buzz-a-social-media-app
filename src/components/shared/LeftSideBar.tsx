@@ -6,7 +6,7 @@ import { TNavLink } from "@/types";
 import { Button } from "../ui/button";
 
 const LeftSideBar = () => {
-  const { user, removeUser } = useUserContext();
+  const { user, removeToken } = useUserContext();
   const { pathname } = useLocation();
 
   return (
@@ -15,17 +15,14 @@ const LeftSideBar = () => {
         <Link to="/">
           <p className="text-secondary font-bold text-2xl">Buzz!</p>
         </Link>
-        <Link
-          to={`/profile/${user.result._id}`}
-          className="flex gap-2 items-center"
-        >
+        <Link to={`/profile/${user._id}`} className="flex gap-2 items-center">
           <img
             src="/assets/icons/profile-placeholder.svg"
             alt="profile"
             className="h-10 w-10 rounded-full"
           />
           <div>
-            <p>@{user.result.username}</p>
+            <p>@{user.username}</p>
           </div>
         </Link>
         <ul className="flex flex-col gap-4">
@@ -55,7 +52,7 @@ const LeftSideBar = () => {
       <Button
         className="hover:bg-transparent flex justify-start items-center gap-4 p-0"
         variant="ghost"
-        onClick={removeUser}
+        onClick={removeToken}
       >
         <img src="/assets/icons/logout.svg" alt="logout" />
         Logout

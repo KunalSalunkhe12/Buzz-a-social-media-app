@@ -22,7 +22,7 @@ import { useEffect } from "react";
 const SignupForm = () => {
   const { toast } = useToast();
   const { mutate: signInAccount, isPending: isSigning } = useSignInAccount();
-  const { saveUser } = useUserContext();
+  const { saveToken } = useUserContext();
   const navigate = useNavigate();
   const { state: locationState } = useLocation();
 
@@ -46,7 +46,7 @@ const SignupForm = () => {
     signInAccount(values, {
       onSuccess(response) {
         const { data } = response;
-        saveUser(data);
+        saveToken(data);
         toast({
           title: "Sign in Successful",
           variant: "primary",

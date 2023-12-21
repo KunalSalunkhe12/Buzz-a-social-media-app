@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { useUserContext } from "@/context/user/UserContext";
 
 const TopBar = () => {
-  const { user, removeUser } = useUserContext();
+  const { user, removeToken } = useUserContext();
   return (
     <section className="sticky top-0 flex md:hidden justify-between items-center p-2">
       <Link to="/">
@@ -13,7 +13,7 @@ const TopBar = () => {
         <Button
           className="hover:bg-transparent"
           variant="ghost"
-          onClick={removeUser}
+          onClick={removeToken}
         >
           <img
             className="h-5 w-5"
@@ -21,7 +21,7 @@ const TopBar = () => {
             alt="logout"
           />
         </Button>
-        <Link to={`/profile/${user.result._id}`}>
+        <Link to={`/profile/${user._id}`}>
           <img
             src="/assets/icons/profile-placeholder.svg"
             alt="profile"

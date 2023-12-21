@@ -2,11 +2,11 @@ import { useUserContext } from "@/context/user/UserContext";
 import { Outlet, Navigate } from "react-router-dom";
 
 const AuthLayout = () => {
-  const { user } = useUserContext();
+  const { token } = useUserContext();
 
   return (
     <>
-      {user.token ? (
+      {token ? (
         <Navigate to="/" />
       ) : (
         <section className="flex justify-center items-center p-10 h-screen">

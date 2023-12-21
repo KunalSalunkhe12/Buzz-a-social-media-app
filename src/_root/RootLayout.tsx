@@ -5,11 +5,12 @@ import LeftSideBar from "@/components/shared/LeftSideBar";
 import TopBar from "@/components/shared/TopBar";
 
 const RootLayout = () => {
-  const { user } = useUserContext();
+  const { token } = useUserContext();
 
+  console.log(token);
   return (
     <div className="w-full h-full md:flex">
-      {user.token ? (
+      {token ? (
         <>
           <TopBar />
           <LeftSideBar />

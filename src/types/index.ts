@@ -14,11 +14,6 @@ export type TUser = {
   savedPosts?: string[];
 };
 
-export type TProfile = {
-  token: string;
-  user: TUser;
-};
-
 export type TNavLink = {
   imgURL: string;
   route: string;
