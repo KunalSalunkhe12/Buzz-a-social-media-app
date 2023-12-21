@@ -7,6 +7,7 @@ const API = axios.create({ baseURL: url });
 
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");
+  console.log(token);
   if (token) {
     req.headers.Authorization = `Bearer ${JSON.parse(token)}`;
   }
@@ -20,8 +21,9 @@ export const createUserAccount = (userData: TNewUser) =>
 export const signInAccount = (userData: { email: string; password: string }) =>
   API.post("/user/signin", userData);
 
-export const getCurrentUser: () => Promise<AxiosResponse<TUser>> = () =>
-  API.get("/user");
+export const getCurrentUser: () => Promise<
+  AxiosResponse<{ result: TUser }>
+> = () => API.get("/user");
 
 export const savePost = (savedPostList: string[]) =>
   API.put("/user/save-post", { savedPostList });

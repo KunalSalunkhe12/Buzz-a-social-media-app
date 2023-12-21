@@ -40,7 +40,7 @@ export const useGetRecentPost = () => {
     queryKey: [QueryKeys.GET_RECENT_POSTS],
     queryFn: async () => {
       const { data } = await getRecentPosts();
-      return data;
+      return data.result;
     },
   });
 };

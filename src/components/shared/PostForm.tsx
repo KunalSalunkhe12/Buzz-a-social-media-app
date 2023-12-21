@@ -33,6 +33,7 @@ const PostForm = () => {
   function onSubmit(values: z.infer<typeof PostSchema>) {
     createPost(values, {
       onSuccess(response) {
+        console.log(response);
         const { data } = response;
         toast({
           title: data.message,

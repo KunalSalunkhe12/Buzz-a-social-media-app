@@ -51,16 +51,17 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const checkAuthUser = async () => {
     try {
       const { data } = await getCurrentUser();
-      if (data) {
+      const user = data.result;
+      if (user) {
         setUser({
-          _id: data._id,
-          name: data.name,
-          username: data.username,
-          email: data.email,
-          imageUrl: data.imageUrl,
-          bio: data.bio,
-          likedPosts: data.likedPosts,
-          savedPosts: data.savedPosts,
+          _id: user._id,
+          name: user.name,
+          username: user.username,
+          email: user.email,
+          imageUrl: user.imageUrl,
+          bio: user.bio,
+          likedPosts: user.likedPosts,
+          savedPosts: user.savedPosts,
         });
       }
     } catch (error) {

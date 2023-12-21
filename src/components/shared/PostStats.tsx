@@ -12,6 +12,7 @@ type PostStatsProps = {
 
 const PostStats = ({ post }: PostStatsProps) => {
   const { user } = useUserContext();
+  console.log(user);
   const [likes, setLikes] = useState(post.likes);
   const [savedPosts, setSavedPost] = useState(user.savedPosts);
 

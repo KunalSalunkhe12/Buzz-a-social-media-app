@@ -39,7 +39,7 @@ const SignupForm = () => {
     createUserAccount(values, {
       onSuccess(response) {
         const { data } = response;
-        saveToken(data);
+        saveToken(data.result);
         toast({
           title: "Sign up Successful..!!",
           variant: "primary",
