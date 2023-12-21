@@ -8,15 +8,15 @@ export type TUser = {
   name: string;
   username: string;
   email: string;
-  bio: string;
-  imageUrl: string;
-  likedPosts: string[];
-  savedPosts: string[];
+  bio?: string;
+  imageUrl?: string;
+  likedPosts?: string[];
+  savedPosts?: string[];
 };
 
 export type TProfile = {
   token: string;
-  result: TUser;
+  user: TUser;
 };
 
 export type TNavLink = {

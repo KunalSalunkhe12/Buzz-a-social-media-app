@@ -7,15 +7,11 @@ import { toast } from "@/components/ui/use-toast";
 
 const INITIAL_USER_PROFILE = {
   token: "",
-  result: {
+  user: {
     _id: "",
     name: "",
     username: "",
     email: "",
-    bio: "",
-    imageUrl: "",
-    likedPosts: [],
-    savedPosts: [],
   },
 };
 
