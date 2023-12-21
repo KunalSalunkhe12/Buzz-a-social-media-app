@@ -23,6 +23,9 @@ export const signInAccount = (userData: { email: string; password: string }) =>
 export const getCurrentUser: () => Promise<AxiosResponse<TUser>> = () =>
   API.get("/user");
 
+export const savePost = (savedPostList: string[]) =>
+  API.put("/user/save-post", { savedPostList });
+
 // Post
 export const createPost = (postData: TNewPost) =>
   API.post("/post", postData, {
@@ -30,3 +33,6 @@ export const createPost = (postData: TNewPost) =>
   });
 
 export const getRecentPosts = () => API.get("/post");
+
+export const likePost = (postId: string, likesList: string[]) =>
+  API.put(`post/like/${postId}`, { postId, likesList });

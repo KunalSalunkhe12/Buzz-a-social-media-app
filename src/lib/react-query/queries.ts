@@ -4,6 +4,8 @@ import {
   createPost,
   createUserAccount,
   getRecentPosts,
+  likePost,
+  savePost,
   signInAccount,
 } from "@/api";
 import { QueryKeys } from "./queryKeys";
@@ -39,6 +41,36 @@ export const useGetRecentPost = () => {
     queryFn: async () => {
       const { data } = await getRecentPosts();
       return data;
+    },
+  });
+};
+
+export const useLikePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      postId,
+      likesList,
+    }: {
+      postId: string;
+      likesList: string[];
+    }) => likePost(postId, likesList),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.GET_RECENT_POSTS],
+      });
+    },
+  });
+};
+
+export const useSavePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (savedPostList: string[]) => savePost(savedPostList),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.GET_RECENT_POSTS],
+      });
     },
   });
 };

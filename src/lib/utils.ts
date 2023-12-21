@@ -54,3 +54,8 @@ export const checkIsLiked = (likesList: string[], userId: string) => {
   const isLiked = likesList.includes(userId);
   return isLiked;
 };
+
+export const checkIsSaved = (savedPostList: string[], postId: string) => {
+  const isSaved = savedPostList.includes(postId);
+  return isSaved;
+};

@@ -2,7 +2,9 @@ import { TPost } from "@/types";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { useUserContext } from "@/context/user/UserContext";
-import { checkIsLiked } from "@/lib/utils";
+import { checkIsLiked, checkIsSaved } from "@/lib/utils";
+import { useLikePost, useSavePost } from "@/lib/react-query/queries";
+import { toast } from "../ui/use-toast";
 
 type PostStatsProps = {
   post: TPost;
@@ -11,28 +13,63 @@ type PostStatsProps = {
 const PostStats = ({ post }: PostStatsProps) => {
   const { user } = useUserContext();
   const [likes, setLikes] = useState(post.likes);
-  const [isSaved, setIsSaved] = useState(false);
+  const [savedPosts, setSavedPost] = useState(user.savedPosts);
+
+  const { mutate: likePost } = useLikePost();
+  const { mutate: savePost } = useSavePost();
 
   const handleLikePost = () => {
-    if (checkIsLiked(likes, user._id)) {
-      const newLikedList = likes.filter((like) => like !== user._id);
-      setLikes(newLikedList);
-      return;
+    let likesList = [...likes];
+
+    if (checkIsLiked(likesList, user._id)) {
+      likesList = likesList.filter((like) => like !== user._id);
     } else {
-      setLikes([...likes, user._id]);
+      likesList.push(user._id);
     }
+
+    setLikes(likesList);
+    likePost(
+      { postId: post._id, likesList },
+      {
+        onError: () => {
+          setLikes(post.likes);
+          toast({
+            variant: "destructive",
+            title: "Something went wrong",
+          });
+        },
+      }
+    );
   };
 
   const handleSavePost = () => {
-    setIsSaved(!isSaved);
-  };
+    let savedPostsList = [...savedPosts];
 
+    if (checkIsSaved(savedPostsList, post._id)) {
+      savedPostsList = savedPostsList.filter(
+        (savedPost) => savedPost !== post._id
+      );
+    } else {
+      savedPostsList.push(post._id);
+    }
+
+    setSavedPost(savedPostsList);
+    savePost(savedPostsList, {
+      onError: () => {
+        setSavedPost(user.savedPosts);
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+      },
+    });
+  };
   return (
     <div className="w-full flex justify-between">
       <Button
         onClick={handleLikePost}
         variant="ghost"
-        className="hover:bg-transparent p-0"
+        className="hover:bg-transparent p-0 flex gap-2 items-center"
       >
         <img
           src={
@@ -43,6 +80,7 @@ const PostStats = ({ post }: PostStatsProps) => {
           alt="like"
           className="w-6 h-6"
         />
+        <p>{likes.length}</p>
       </Button>
       <Button
         onClick={handleSavePost}
@@ -50,7 +88,11 @@ const PostStats = ({ post }: PostStatsProps) => {
         className="hover:bg-transparent p-0"
       >
         <img
-          src={isSaved ? "assets/icons/saved.svg" : "assets/icons/save.svg"}
+          src={
+            checkIsSaved(savedPosts, post._id)
+              ? "assets/icons/saved.svg"
+              : "assets/icons/save.svg"
+          }
           alt="like"
           className="w-6 h-6"
         />
