@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 import { TUser } from "@/types";
-import { getCurrentUser } from "@/api";
 import { toast } from "@/components/ui/use-toast";
+import { useGetCurrentUser } from "@/lib/react-query/queries";
 
 const INITIAL_USER_PROFILE = {
   _id: "",
@@ -38,6 +38,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState("");
   const navigate = useNavigate();
 
+  const { data, isSuccess } = useGetCurrentUser();
+
   const saveToken = (token: string) => {
     localStorage.setItem("token", JSON.stringify(token));
     setToken(token);
@@ -48,24 +50,24 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setToken("");
   };
 
-  const checkAuthUser = async () => {
-    try {
-      const { data } = await getCurrentUser();
+  const checkAuthUser = () => {
+    if (isSuccess) {
       const user = data.result;
-      if (user) {
-        setUser({
-          _id: user._id,
-          name: user.name,
-          username: user.username,
-          email: user.email,
-          imageUrl: user.imageUrl,
-          bio: user.bio,
-          likedPosts: user.likedPosts,
-          savedPosts: user.savedPosts,
-        });
-      }
-    } catch (error) {
-      console.log(error);
+      setUser({
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        imageUrl: user.imageUrl,
+        bio: user.bio,
+        likedPosts: user.likedPosts,
+        savedPosts: user.savedPosts,
+      });
+    } else {
+      toast({
+        title: "Something went wrong.Please sign in again",
+      });
+      navigate("/sign-in");
     }
   };
 

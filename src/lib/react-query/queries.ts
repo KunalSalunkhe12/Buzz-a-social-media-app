@@ -3,6 +3,7 @@ import { TNewPost, TNewUser } from "@/types";
 import {
   createPost,
   createUserAccount,
+  getCurrentUser,
   getRecentPosts,
   likePost,
   savePost,
@@ -20,6 +21,16 @@ export const useSignInAccount = () => {
   return useMutation({
     mutationFn: (userData: { email: string; password: string }) =>
       signInAccount(userData),
+  });
+};
+
+export const useGetCurrentUser = () => {
+  return useQuery({
+    queryKey: [QueryKeys.GET_CURRENT_USER],
+    queryFn: async () => {
+      const { data } = await getCurrentUser();
+      return data;
+    },
   });
 };
 
@@ -70,6 +81,9 @@ export const useSavePost = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.GET_RECENT_POSTS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.GET_CURRENT_USER],
       });
     },
   });
