@@ -29,7 +29,7 @@ export const useGetCurrentUser = () => {
     queryKey: [QueryKeys.GET_CURRENT_USER],
     queryFn: async () => {
       const { data } = await getCurrentUser();
-      return data;
+      return data.result;
     },
   });
 };

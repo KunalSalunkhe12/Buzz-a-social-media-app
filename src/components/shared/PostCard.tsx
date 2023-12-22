@@ -2,11 +2,13 @@ import { multiFormatDateString } from "@/lib/utils";
 import { TPost } from "@/types";
 import { Link } from "react-router-dom";
 import PostStats from "./PostStats";
+import { useUserContext } from "@/context/user/UserContext";
 
 type PostCardProps = {
   post: TPost;
 };
 const PostCard = ({ post }: PostCardProps) => {
+  const { user } = useUserContext();
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -36,7 +38,7 @@ const PostCard = ({ post }: PostCardProps) => {
             alt="post image"
           />
         </div>
-        <PostStats post={post} />
+        <PostStats post={post} userId={user._id} />
         <div className="flex gap-3 text-sm">
           <p>{post.creator.username}</p>
           <p>{post.caption}</p>

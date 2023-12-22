@@ -78,7 +78,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const userToken = localStorage.getItem("token");
-    if (userToken === "[]" || userToken === null || userToken === undefined) {
+    if (userToken === "" || userToken === null || userToken === undefined) {
       return navigate("/sign-in");
     }
 

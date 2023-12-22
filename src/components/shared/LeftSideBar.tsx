@@ -6,7 +6,7 @@ import { TNavLink } from "@/types";
 import { Button } from "../ui/button";
 
 const LeftSideBar = () => {
-  const { user, removeToken } = useUserContext();
+  const { user, removeToken, isLoading } = useUserContext();
   const { pathname } = useLocation();
 
   return (
@@ -15,16 +15,20 @@ const LeftSideBar = () => {
         <Link to="/">
           <p className="text-secondary font-bold text-2xl">Buzz!</p>
         </Link>
-        <Link to={`/profile/${user._id}`} className="flex gap-2 items-center">
-          <img
-            src="/assets/icons/profile-placeholder.svg"
-            alt="profile"
-            className="h-10 w-10 rounded-full"
-          />
-          <div>
-            <p>@{user.username}</p>
-          </div>
-        </Link>
+        {!isLoading ? (
+          <Link to={`/profile/${user._id}`} className="flex gap-2 items-center">
+            <img
+              src="/assets/icons/profile-placeholder.svg"
+              alt="profile"
+              className="h-10 w-10 rounded-full"
+            />
+            <div>
+              <p>@{user.username}</p>
+            </div>
+          </Link>
+        ) : (
+          <div>Loading...</div>
+        )}
         <ul className="flex flex-col gap-4">
           {sidebarLinks.map((link: TNavLink) => {
             const isActive = link.route === pathname;
