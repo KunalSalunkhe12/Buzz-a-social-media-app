@@ -11,6 +11,8 @@ import {
 } from "@/api";
 import { QueryKeys } from "./queryKeys";
 
+/*** USER QUERIES ***/
+
 export const useCreateUserAccount = () => {
   return useMutation({
     mutationFn: (userData: TNewUser) => createUserAccount(userData),
@@ -33,6 +35,8 @@ export const useGetCurrentUser = () => {
     },
   });
 };
+
+/*** POST QUERIES ***/
 
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
