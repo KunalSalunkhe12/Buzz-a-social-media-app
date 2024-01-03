@@ -37,3 +37,5 @@ export const getRecentPosts = () => API.get("/post");
 
 export const likePost = (postId: string, likesList: string[]) =>
   API.put(`post/like/${postId}`, { postId, likesList });
+
+export const getPostById = (postId?: string) => API.get(`/post/${postId}`);

@@ -6,6 +6,7 @@ import TopBar from "@/components/shared/TopBar";
 
 const RootLayout = () => {
   const { token } = useUserContext();
+  console.log(token);
   return (
     <div className="w-full h-full md:flex">
       {token ? (

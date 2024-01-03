@@ -17,18 +17,25 @@ import { PostSchema } from "@/lib/validation";
 import FileUploader from "./FileUploader";
 import { useCreatePost } from "@/lib/react-query/queries";
 import { toast } from "../ui/use-toast";
+import { TPost } from "@/types";
 
-const PostForm = () => {
+type PostFormProps = {
+  post?: TPost;
+  action: "Update" | "Create";
+};
+
+const PostForm = ({ post, action }: PostFormProps) => {
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof PostSchema>>({
     resolver: zodResolver(PostSchema),
     defaultValues: {
-      caption: "",
+      caption: post ? post.caption : "",
       image: undefined,
-      location: "",
-      tags: "",
+      location: post ? post.location : "",
+      tags: post ? post.tags.join(",") : "",
     },
   });
+  console.log(action);
   const { mutate: createPost, isPending: isCreatingPost } = useCreatePost();
   function onSubmit(values: z.infer<typeof PostSchema>) {
     createPost(values, {
@@ -78,7 +85,10 @@ const PostForm = () => {
             <FormItem>
               <FormLabel>Add Photo</FormLabel>
               <FormControl>
-                <FileUploader fieldChange={field.onChange} />
+                <FileUploader
+                  imageUrl={post?.imageUrl}
+                  fieldChange={field.onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -120,7 +130,7 @@ const PostForm = () => {
             Cancel
           </Button>
           <Button type="submit" disabled={isCreatingPost}>
-            {isCreatingPost ? "Submitting.." : "Submit"}
+            {isCreatingPost ? "Submitting.." : action}
           </Button>
         </div>
       </form>

@@ -12,25 +12,36 @@ const PostCard = ({ post }: PostCardProps) => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <Link
-          to={`/profile/${post.creator._id}`}
-          className="flex items-center gap-4"
-        >
-          <img
-            src="/assets/icons/profile-placeholder.svg"
-            alt="Profile"
-            className="h-10 w-10"
-          />
-          <div className="flex flex-col">
-            <div className="flex gap-2 items-center">
-              <p>{post.creator.username}</p>
-              <p className="text-gray-500 text-sm">
-                {multiFormatDateString(post.createdAt)}
-              </p>
+        <div className="flex justify-between items-center">
+          <Link
+            to={`/profile/${post.creator._id}`}
+            className="flex items-center gap-4"
+          >
+            <img
+              src="/assets/icons/profile-placeholder.svg"
+              alt="Profile"
+              className="h-10 w-10"
+            />
+            <div className="flex flex-col">
+              <div className="flex gap-2 items-center">
+                <p>{post.creator.username}</p>
+                <p className="text-gray-500 text-sm">
+                  {multiFormatDateString(post.createdAt)}
+                </p>
+              </div>
+              <p className="text-xs">{post.location}</p>
             </div>
-            <p className="text-xs">{post.location}</p>
-          </div>
-        </Link>
+          </Link>
+          {post.creator._id === user._id && (
+            <Link to={`/update-post/${post._id}`}>
+              <img
+                src="assets/icons/edit.svg"
+                alt="Edit icon"
+                className="w-5 h-5"
+              />
+            </Link>
+          )}
+        </div>
         <div className="h-72 lg:h-[380px] border-2 rounded-md mt-2">
           <img
             className="w-full h-full object-contain object-center"
@@ -44,7 +55,7 @@ const PostCard = ({ post }: PostCardProps) => {
           <p>{post.caption}</p>
         </div>
       </div>
-      <hr className="my-5" />
+      <hr className="my-10" />
     </>
   );
 };

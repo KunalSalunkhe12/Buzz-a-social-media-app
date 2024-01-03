@@ -4,12 +4,13 @@ import {
   createPost,
   createUserAccount,
   getCurrentUser,
+  getPostById,
   getRecentPosts,
   likePost,
   savePost,
   signInAccount,
 } from "@/api";
-import { QueryKeys } from "./queryKeys";
+import { QUERY_KEYS } from "./queryKeys";
 
 /*** USER QUERIES ***/
 
@@ -28,7 +29,7 @@ export const useSignInAccount = () => {
 
 export const useGetCurrentUser = () => {
   return useQuery({
-    queryKey: [QueryKeys.GET_CURRENT_USER],
+    queryKey: [QUERY_KEYS.GET_CURRENT_USER],
     queryFn: async () => {
       const { data } = await getCurrentUser();
       return data.result;
@@ -44,7 +45,7 @@ export const useCreatePost = () => {
     mutationFn: (postData: TNewPost) => createPost(postData),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeys.GET_RECENT_POSTS],
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
       });
     },
   });
@@ -52,7 +53,7 @@ export const useCreatePost = () => {
 
 export const useGetRecentPost = () => {
   return useQuery({
-    queryKey: [QueryKeys.GET_RECENT_POSTS],
+    queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
     queryFn: async () => {
       const { data } = await getRecentPosts();
       return data.result;
@@ -72,7 +73,7 @@ export const useLikePost = () => {
     }) => likePost(postId, likesList),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeys.GET_RECENT_POSTS],
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
       });
     },
   });
@@ -84,11 +85,22 @@ export const useSavePost = () => {
     mutationFn: (savedPostList: string[]) => savePost(savedPostList),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeys.GET_RECENT_POSTS],
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
       });
       queryClient.invalidateQueries({
-        queryKey: [QueryKeys.GET_CURRENT_USER],
+        queryKey: [QUERY_KEYS.GET_CURRENT_USER],
       });
     },
+  });
+};
+
+export const useGetPostById = (postId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
+    queryFn: async () => {
+      const { data } = await getPostById(postId);
+      return data.result;
+    },
+    enabled: !!postId,
   });
 };
