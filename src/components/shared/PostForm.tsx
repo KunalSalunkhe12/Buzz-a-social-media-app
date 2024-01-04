@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { DevTool } from "@hookform/devtools";
 
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PostSchema } from "@/lib/validation";
 import FileUploader from "./FileUploader";
-import { useCreatePost } from "@/lib/react-query/queries";
+import { useCreatePost, useUpdatePost } from "@/lib/react-query/queries";
 import { toast } from "../ui/use-toast";
 import { TPost } from "@/types";
 
@@ -35,27 +36,44 @@ const PostForm = ({ post, action }: PostFormProps) => {
       tags: post ? post.tags.join(",") : "",
     },
   });
-  console.log(action);
   const { mutate: createPost, isPending: isCreatingPost } = useCreatePost();
+  const { mutate: updatePost, isPending: isUpdatingPost } = useUpdatePost();
+
   function onSubmit(values: z.infer<typeof PostSchema>) {
-    createPost(values, {
-      onSuccess(response) {
-        console.log(response);
-        const { data } = response;
-        toast({
-          title: data.message,
-          variant: "primary",
-        });
-        navigate("/");
-      },
-      onError(error) {
-        console.log(error);
-        toast({
-          title: "Couldn't add new Post. Try again",
-          variant: "destructive",
-        });
-      },
-    });
+    if (action === "Update") {
+      console.log(values);
+      updatePost(
+        { postData: values, postId: post?._id },
+        {
+          onSuccess(data) {
+            console.log(data);
+            return navigate("/");
+          },
+          onError(error) {
+            console.log(error);
+            return;
+          },
+        }
+      );
+    } else {
+      createPost(values, {
+        onSuccess(response) {
+          const { data } = response;
+          toast({
+            title: data.message,
+            variant: "primary",
+          });
+          navigate("/");
+        },
+        onError(error) {
+          console.log(error);
+          toast({
+            title: "Couldn't add new Post. Try again",
+            variant: "destructive",
+          });
+        },
+      });
+    }
   }
 
   return (
@@ -78,22 +96,21 @@ const PostForm = ({ post, action }: PostFormProps) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Add Photo</FormLabel>
-              <FormControl>
-                <FileUploader
-                  imageUrl={post?.imageUrl}
-                  fieldChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {action === "Create" && (
+          <FormField
+            control={form.control}
+            name="image"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Add Photo</FormLabel>
+                <FormControl>
+                  <FileUploader fieldChange={field.onChange} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
         <FormField
           control={form.control}
           name="location"
@@ -129,11 +146,13 @@ const PostForm = ({ post, action }: PostFormProps) => {
           <Button variant="outline" onClick={() => navigate(-1)}>
             Cancel
           </Button>
-          <Button type="submit" disabled={isCreatingPost}>
-            {isCreatingPost ? "Submitting.." : action}
+          <Button type="submit" disabled={isCreatingPost || isUpdatingPost}>
+            {isCreatingPost || isUpdatingPost ? "..." : action}
           </Button>
         </div>
       </form>
+
+      <DevTool control={form.control} />
     </Form>
   );
 };

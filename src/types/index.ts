@@ -21,12 +21,14 @@ export type TNavLink = {
 };
 
 export type TNewPost = z.infer<typeof PostSchema>;
+export type TUpdatePost = TNewPost & { imageId?: string };
 
 export type TPost = {
   _id: string;
   caption: string;
   creator: TUser;
   imageUrl: string;
+  imageId: string;
   likes: string[];
   saved: string[];
   location: string;

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { TNewPost, TNewUser } from "@/types";
+import { TNewPost, TNewUser, TUpdatePost } from "@/types";
 import {
   createPost,
   createUserAccount,
@@ -9,6 +9,7 @@ import {
   likePost,
   savePost,
   signInAccount,
+  updatePost,
 } from "@/api";
 import { QUERY_KEYS } from "./queryKeys";
 
@@ -102,5 +103,26 @@ export const useGetPostById = (postId?: string) => {
       return data.result;
     },
     enabled: !!postId,
+  });
+};
+
+export const useUpdatePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      postData,
+      postId,
+    }: {
+      postData: TUpdatePost;
+      postId?: string;
+    }) => {
+      const { data } = await updatePost(postData, postId);
+      return data.result;
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_POST_BY_ID, data._id],
+      });
+    },
   });
 };

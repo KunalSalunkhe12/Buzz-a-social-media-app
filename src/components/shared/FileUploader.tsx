@@ -4,16 +4,14 @@ import { Button } from "../ui/button";
 
 type FileUploaderProps = {
   fieldChange: (file: File) => void;
-  imageUrl?: string;
 };
-const FileUploader = ({ imageUrl, fieldChange }: FileUploaderProps) => {
-  const [fileUrl, setFileUrl] = useState(imageUrl ?? "");
+const FileUploader = ({ fieldChange }: FileUploaderProps) => {
+  const [fileUrl, setFileUrl] = useState("");
 
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
       const url = URL.createObjectURL(acceptedFiles[0]);
       setFileUrl(url);
-      console.log(url);
       fieldChange(acceptedFiles[0]);
     },
     [fileUrl]

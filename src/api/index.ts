@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { TNewPost, TNewUser, TUser } from "@/types";
+import { TNewPost, TNewUser, TUpdatePost, TUser } from "@/types";
 
 const url = import.meta.env.VITE_API_URL;
 
@@ -39,3 +39,9 @@ export const likePost = (postId: string, likesList: string[]) =>
   API.put(`post/like/${postId}`, { postId, likesList });
 
 export const getPostById = (postId?: string) => API.get(`/post/${postId}`);
+
+export const updatePost = (postData: TUpdatePost, postId?: string) => {
+  return API.put(`/post/${postId}`, postData, {
+    headers: { "content-type": "multipart/form-data" },
+  });
+};
