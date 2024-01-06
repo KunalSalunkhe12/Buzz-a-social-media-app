@@ -7,6 +7,7 @@ import {
   useSavePost,
 } from "@/lib/react-query/queries";
 import { useEffect, useState } from "react";
+import Loader from "./Loader";
 
 type PostStatsProps = {
   post: TPost;
@@ -89,7 +90,7 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
           </Button>
         </>
       ) : (
-        <div>Loading..</div>
+        <Loader />
       )}
     </div>
   );

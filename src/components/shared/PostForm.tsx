@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { DevTool } from "@hookform/devtools";
 
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -19,6 +18,7 @@ import FileUploader from "./FileUploader";
 import { useCreatePost, useUpdatePost } from "@/lib/react-query/queries";
 import { toast } from "../ui/use-toast";
 import { TPost } from "@/types";
+import Loader from "./Loader";
 
 type PostFormProps = {
   post?: TPost;
@@ -41,7 +41,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
 
   function onSubmit(values: z.infer<typeof PostSchema>) {
     if (action === "Update") {
-      console.log(values);
       updatePost(
         { postData: values, postId: post?._id },
         {
@@ -147,12 +146,10 @@ const PostForm = ({ post, action }: PostFormProps) => {
             Cancel
           </Button>
           <Button type="submit" disabled={isCreatingPost || isUpdatingPost}>
-            {isCreatingPost || isUpdatingPost ? "..." : action}
+            {isCreatingPost || isUpdatingPost ? <Loader /> : action}
           </Button>
         </div>
       </form>
-
-      <DevTool control={form.control} />
     </Form>
   );
 };

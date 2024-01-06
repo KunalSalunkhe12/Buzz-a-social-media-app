@@ -28,12 +28,14 @@ export const savePost = (savedPostsList: string[]) =>
   API.put("/user/save-post", { savedPostsList });
 
 // Post
+export const getRecentPosts = () => API.get("/post/recent");
+
+export const getPosts = () => API.get("/post");
+
 export const createPost = (postData: TNewPost) =>
   API.post("/post", postData, {
     headers: { "content-type": "multipart/form-data" },
   });
-
-export const getRecentPosts = () => API.get("/post");
 
 export const likePost = (postId: string, likesList: string[]) =>
   API.put(`post/like/${postId}`, { postId, likesList });

@@ -52,6 +52,10 @@ export const useCreatePost = () => {
   });
 };
 
+export const useGetPosts = () => {
+  return;
+};
+
 export const useGetRecentPost = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_RECENT_POSTS],

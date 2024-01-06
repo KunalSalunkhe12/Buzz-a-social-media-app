@@ -4,6 +4,7 @@ import { useUserContext } from "@/context/user/UserContext";
 import { sidebarLinks } from "@/constants";
 import { TNavLink } from "@/types";
 import { Button } from "../ui/button";
+import Loader from "./Loader";
 
 const LeftSideBar = () => {
   const { user, removeToken, isLoading } = useUserContext();
@@ -27,7 +28,7 @@ const LeftSideBar = () => {
             </div>
           </Link>
         ) : (
-          <div>Loading...</div>
+          <Loader />
         )}
         <ul className="flex flex-col gap-4">
           {sidebarLinks.map((link: TNavLink) => {
