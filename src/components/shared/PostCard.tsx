@@ -7,6 +7,7 @@ import { useUserContext } from "@/context/user/UserContext";
 type PostCardProps = {
   post: TPost;
 };
+
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
   return (

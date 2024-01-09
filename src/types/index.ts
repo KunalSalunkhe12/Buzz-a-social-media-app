@@ -35,3 +35,16 @@ export type TPost = {
   tags: string[];
   createdAt: string;
 };
+
+export type TPage = {
+  docs: TPost[];
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  limit: number;
+  nextPage: number | null;
+  page: number;
+  pagingCounter: number;
+  prevPage: number | null;
+  totalDocs: number;
+  totalPages: number;
+};
