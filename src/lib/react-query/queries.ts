@@ -1,10 +1,16 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { TNewPost, TNewUser, TUpdatePost } from "@/types";
 import {
   createPost,
   createUserAccount,
   getCurrentUser,
   getPostById,
+  getPosts,
   getRecentPosts,
   likePost,
   savePost,
@@ -53,7 +59,15 @@ export const useCreatePost = () => {
 };
 
 export const useGetPosts = () => {
-  return;
+  return useInfiniteQuery({
+    initialPageParam: 1,
+    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
+    queryFn: async () => {
+      const { data } = await getPosts({ pageParam: 1 });
+      return data.result;
+    },
+    getNextPageParam: ({ nextPage }) => nextPage,
+  });
 };
 
 export const useGetRecentPost = () => {

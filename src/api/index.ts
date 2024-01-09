@@ -30,7 +30,8 @@ export const savePost = (savedPostsList: string[]) =>
 // Post
 export const getRecentPosts = () => API.get("/post/recent");
 
-export const getPosts = () => API.get("/post");
+export const getPosts = ({ pageParam }: { pageParam: number }) =>
+  API.get(`/post?${pageParam}`);
 
 export const createPost = (postData: TNewPost) =>
   API.post("/post", postData, {
