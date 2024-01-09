@@ -12,7 +12,7 @@ const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
   return (
     <>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 ">
         <div className="flex justify-between items-center">
           <Link
             to={`/profile/${post.creator._id}`}
@@ -43,7 +43,7 @@ const PostCard = ({ post }: PostCardProps) => {
             </Link>
           )}
         </div>
-        <div className="h-72 lg:h-[380px] border-2 rounded-md mt-2">
+        <div className=" h-72 lg:h-[380px] border-2 rounded-md mt-2">
           <img
             className="w-full h-full object-contain object-center"
             src={post.imageUrl}
