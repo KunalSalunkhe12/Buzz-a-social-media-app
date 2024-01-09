@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
-import { Button } from "../ui/button";
 
 type FileUploaderProps = {
   fieldChange: (file: File) => void;
@@ -50,9 +49,9 @@ const FileUploader = ({ fieldChange }: FileUploaderProps) => {
           <h3 className="mb-2 mt-6">Drag photo here</h3>
           <p className="text-slate-500 text-xs mb-6">SVG, PNG, JPG</p>
 
-          <Button variant="outline" className="bg-slate-500">
+          <p className="bg-slate-500 p-2 rounded-md hover:cursor-pointer">
             Select from computer
-          </Button>
+          </p>
         </div>
       )}
     </div>

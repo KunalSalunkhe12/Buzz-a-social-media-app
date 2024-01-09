@@ -62,8 +62,8 @@ export const useGetPosts = () => {
   return useInfiniteQuery({
     initialPageParam: 1,
     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
-    queryFn: async () => {
-      const { data } = await getPosts({ pageParam: 1 });
+    queryFn: async ({ pageParam }) => {
+      const { data } = await getPosts(pageParam);
       return data.result;
     },
     getNextPageParam: ({ nextPage }) => nextPage,
