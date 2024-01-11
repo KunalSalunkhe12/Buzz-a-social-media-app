@@ -46,7 +46,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
         {
           onSuccess(data) {
             console.log(data);
-            return navigate("/");
+            return navigate(-1);
           },
           onError(error) {
             console.log(error);
@@ -58,6 +58,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
       createPost(values, {
         onSuccess(response) {
           const { data } = response;
+          console.log(data);
           toast({
             title: data.message,
             variant: "primary",
