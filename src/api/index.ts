@@ -38,6 +38,9 @@ export const createPost = (postData: TNewPost) =>
     headers: { "content-type": "multipart/form-data" },
   });
 
+export const searchPosts = (searchQuery: string) =>
+  API.get(`/search/post?q=${searchQuery}`);
+
 export const likePost = (postId: string, likesList: string[]) =>
   API.put(`post/like/${postId}`, { postId, likesList });
 

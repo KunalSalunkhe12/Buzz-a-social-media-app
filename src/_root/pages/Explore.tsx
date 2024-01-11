@@ -1,28 +1,28 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { useGetPosts } from "@/lib/react-query/queries";
+import { useGetPosts, useSearchPosts } from "@/lib/react-query/queries";
+import PaginatedPostList from "@/components/shared/PaginatedPostList";
 import Loader from "@/components/shared/Loader";
-import useIntersectionObserver from "@/lib/hooks/useIntersectionObserver";
-import GridPostList from "@/components/shared/GridPostList";
 
 const Explore = () => {
   const [searchValue, setSearchValue] = useState("");
   const {
-    data,
+    data: postData,
     isSuccess,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isPending,
+    isPending: isLoadingPosts,
   } = useGetPosts();
 
-  const loadMoreRef = useRef(null);
-
-  useIntersectionObserver({
-    target: loadMoreRef,
-    onIntersect: fetchNextPage,
-    enabled: hasNextPage,
-  });
+  const {
+    data: searchData,
+    isSuccess: isSearchSuccess,
+    fetchNextPage: fetchNextSearchPage,
+    hasNextPage: hasNextSearchPage,
+    isFetchingNextPage: isFetchingNextSearchPage,
+    isPending: isLoadingSearchPosts,
+  } = useSearchPosts(searchValue);
 
   return (
     <div className=" flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
@@ -43,15 +43,26 @@ const Explore = () => {
         </div>
         <div className="mt-2 md:mt-5">
           <p>Popular today</p>
-          <div className="mt-8">
-            {isSuccess && <GridPostList pages={data.pages} />}
-          </div>
-
-          <div ref={loadMoreRef} className={!hasNextPage ? "hidden" : ""}>
-            {isFetchingNextPage ? <Loader /> : ""}
-          </div>
-
-          <div>{isPending && <Loader />}</div>
+          {searchValue
+            ? isSearchSuccess && (
+                <PaginatedPostList
+                  fetchNextPage={fetchNextSearchPage}
+                  hasNextPage={hasNextSearchPage}
+                  isFetchingNextPage={isFetchingNextSearchPage}
+                  isLoading={isLoadingSearchPosts}
+                  pages={searchData.pages}
+                />
+              )
+            : isSuccess && (
+                <PaginatedPostList
+                  fetchNextPage={fetchNextPage}
+                  hasNextPage={hasNextPage}
+                  isFetchingNextPage={isFetchingNextPage}
+                  isLoading={isLoadingPosts}
+                  pages={postData.pages}
+                />
+              )}
+          {(isLoadingPosts || isLoadingSearchPosts) && <Loader />}
         </div>
       </div>
     </div>

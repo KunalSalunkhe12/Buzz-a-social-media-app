@@ -14,6 +14,7 @@ import {
   getRecentPosts,
   likePost,
   savePost,
+  searchPosts,
   signInAccount,
   updatePost,
 } from "@/api";
@@ -142,5 +143,20 @@ export const useUpdatePost = () => {
         queryKey: [QUERY_KEYS.GET_POST_BY_ID, data._id],
       });
     },
+  });
+};
+
+export const useSearchPosts = (searchQuery: string) => {
+  return useInfiniteQuery({
+    initialPageParam: 1,
+    queryKey: [QUERY_KEYS.SEARCH_POSTS, searchQuery],
+    queryFn: async () => {
+      const { data } = await searchPosts(searchQuery);
+
+      if (!data) return [];
+
+      return data.result;
+    },
+    getNextPageParam: ({ nextPage }) => nextPage,
   });
 };
