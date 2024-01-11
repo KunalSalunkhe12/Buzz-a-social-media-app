@@ -10,7 +10,7 @@ const GridPostList = ({ pages }: { pages: TPage[] }) => {
         <Link
           to={`/post/${post._id}`}
           key={post._id}
-          className="w-full h-[300px] justify-self-center"
+          className="w-full h-[300px] justify-self-center border-2"
         >
           <img
             className="object-cover w-full h-full rounded-lg"

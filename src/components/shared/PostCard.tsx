@@ -1,8 +1,15 @@
-import { multiFormatDateString } from "@/lib/utils";
-import { TPost } from "@/types";
 import { Link } from "react-router-dom";
+
+import { TPost } from "@/types";
 import PostStats from "./PostStats";
+import { multiFormatDateString } from "@/lib/utils";
 import { useUserContext } from "@/context/user/UserContext";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "../ui/button";
 
 type PostCardProps = {
   post: TPost;
@@ -34,13 +41,21 @@ const PostCard = ({ post }: PostCardProps) => {
             </div>
           </Link>
           {post.creator._id === user._id && (
-            <Link to={`/update-post/${post._id}`}>
-              <img
-                src="assets/icons/edit.svg"
-                alt="Edit icon"
-                className="w-5 h-5"
-              />
-            </Link>
+            <Popover>
+              <PopoverTrigger>
+                <img
+                  src="/assets/icons/edit.svg"
+                  alt="Edit icon"
+                  className="w-5 h-5"
+                />
+              </PopoverTrigger>
+              <PopoverContent className="flex flex-col gap-2 w-32">
+                <Button>
+                  <Link to={`/update-post/${post._id}`}>Edit</Link>
+                </Button>
+                <Button variant="destructive">Delete</Button>
+              </PopoverContent>
+            </Popover>
           )}
         </div>
         <div className=" h-72 lg:h-[380px] border-2 rounded-md mt-2">

@@ -4,7 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { TNewPost, TNewUser, TUpdatePost } from "@/types";
+import { TNewPost, TNewUser, TPost, TUpdatePost } from "@/types";
 import {
   createPost,
   createUserAccount,
@@ -118,7 +118,7 @@ export const useGetPostById = (postId?: string) => {
     queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
     queryFn: async () => {
       const { data } = await getPostById(postId);
-      return data.result;
+      return data.result as TPost;
     },
     enabled: !!postId,
   });
