@@ -27,6 +27,8 @@ const PaginatedPostList = ({
     enabled: hasNextPage,
   });
 
+  console.log(pages);
+
   return (
     <div className="mt-5">
       <div>{isLoading && <Loader />}</div>
