@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { TPost } from "@/types";
 import PostStats from "./PostStats";
@@ -10,6 +10,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "../ui/button";
+import { useDeletePost } from "@/lib/react-query/queries";
+import { toast } from "../ui/use-toast";
+import Loader from "./Loader";
 
 type PostCardProps = {
   post: TPost;
@@ -17,6 +20,26 @@ type PostCardProps = {
 
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
+  const { mutate: deletePost, isPending: isDeleting } = useDeletePost();
+  const navigate = useNavigate();
+
+  const handleDeletePost = () => {
+    deletePost(post._id, {
+      onSuccess: () => {
+        toast({
+          title: "Post Deleted Successfully",
+          variant: "primary",
+        });
+        navigate("/");
+      },
+      onError: () => {
+        toast({
+          title: "Couldn't delete Post, Try again",
+          variant: "destructive",
+        });
+      },
+    });
+  };
   return (
     <>
       <div className="flex flex-col gap-2 ">
@@ -53,7 +76,9 @@ const PostCard = ({ post }: PostCardProps) => {
                 <Button>
                   <Link to={`/update-post/${post._id}`}>Edit</Link>
                 </Button>
-                <Button variant="destructive">Delete</Button>
+                <Button onClick={handleDeletePost} variant="destructive">
+                  {isDeleting ? <Loader /> : "Delete"}
+                </Button>
               </PopoverContent>
             </Popover>
           )}

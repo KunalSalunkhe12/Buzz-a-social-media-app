@@ -8,6 +8,7 @@ import { TNewPost, TNewUser, TPost, TUpdatePost } from "@/types";
 import {
   createPost,
   createUserAccount,
+  deletePost,
   getCurrentUser,
   getPostById,
   getPosts,
@@ -158,5 +159,17 @@ export const useSearchPosts = (searchQuery: string) => {
       return data.result;
     },
     getNextPageParam: ({ nextPage }) => nextPage,
+  });
+};
+
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (postId: string) => deletePost(postId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      });
+    },
   });
 };

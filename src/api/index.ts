@@ -51,3 +51,5 @@ export const updatePost = (postData: TUpdatePost, postId?: string) => {
     headers: { "content-type": "multipart/form-data" },
   });
 };
+
+export const deletePost = (postId: string) => API.delete(`/post/${postId}`);

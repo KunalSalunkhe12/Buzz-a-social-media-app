@@ -20,6 +20,7 @@ const PaginatedPostList = ({
   fetchNextPage,
 }: PaginatedPostListProps) => {
   const loadMoreRef = useRef(null);
+  const posts = pages.map((page) => page.docs).flat();
 
   useIntersectionObserver({
     target: loadMoreRef,
@@ -30,7 +31,7 @@ const PaginatedPostList = ({
   return (
     <div className="mt-5">
       <div>{isLoading && <Loader />}</div>
-      <GridPostList pages={pages} />
+      <GridPostList posts={posts} />
       <div ref={loadMoreRef} className={!hasNextPage ? "hidden" : ""}>
         {isFetchingNextPage ? <Loader /> : ""}
       </div>
