@@ -3,9 +3,12 @@ import { Input } from "@/components/ui/input";
 import { useGetPosts, useSearchPosts } from "@/lib/react-query/queries";
 import PaginatedPostList from "@/components/shared/PaginatedPostList";
 import Loader from "@/components/shared/Loader";
+import useDebounce from "@/lib/hooks/useDebounce";
 
 const Explore = () => {
   const [searchValue, setSearchValue] = useState("");
+  const debouncedValue = useDebounce(searchValue, 500);
+
   const {
     data: postData,
     isSuccess,
@@ -22,7 +25,7 @@ const Explore = () => {
     hasNextPage: hasNextSearchPage,
     isFetchingNextPage: isFetchingNextSearchPage,
     isPending: isLoadingSearchPosts,
-  } = useSearchPosts(searchValue);
+  } = useSearchPosts(debouncedValue);
 
   return (
     <div className=" flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
@@ -43,7 +46,7 @@ const Explore = () => {
         </div>
         <div className="mt-2 md:mt-5">
           <p>Popular today</p>
-          {searchValue
+          {debouncedValue
             ? isSearchSuccess && (
                 <PaginatedPostList
                   fetchNextPage={fetchNextSearchPage}
