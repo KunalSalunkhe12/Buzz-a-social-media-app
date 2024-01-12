@@ -8,7 +8,6 @@ const Profile = () => {
   const { id } = useParams();
   const { user } = useUserContext();
   const { data: currentUser, isPending, isSuccess } = useGetUserById(id || "");
-  console.log(user);
 
   return (
     <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
@@ -38,7 +37,7 @@ const Profile = () => {
                 </div>
               </div>
               {user._id === currentUser._id && (
-                <Link to={"/"}>
+                <Link to={`/update-profile/${currentUser._id}`}>
                   <img
                     src="/assets/icons/edit.svg"
                     alt="edit post"

@@ -72,7 +72,7 @@ const router = createBrowserRouter([
             element: <Profile />,
           },
           {
-            path: "update-profile",
+            path: "update-profile/:id",
             element: <UpdateProfile />,
           },
         ],
