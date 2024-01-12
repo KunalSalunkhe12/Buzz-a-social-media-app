@@ -4,7 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { TNewPost, TNewUser, TPost, TUpdatePost } from "@/types";
+import { TNewPost, TNewUser, TPost, TUpdatePost, TUser } from "@/types";
 import {
   createPost,
   createUserAccount,
@@ -13,6 +13,7 @@ import {
   getPostById,
   getPosts,
   getRecentPosts,
+  getUserById,
   likePost,
   savePost,
   searchPosts,
@@ -42,6 +43,16 @@ export const useGetCurrentUser = () => {
     queryFn: async () => {
       const { data } = await getCurrentUser();
       return data.result;
+    },
+  });
+};
+
+export const useGetUserById = (userId: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
+    queryFn: async () => {
+      const { data } = await getUserById(userId);
+      return data.result as TUser & { posts: TPost[] };
     },
   });
 };

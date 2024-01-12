@@ -24,7 +24,7 @@ const LeftSideBar = () => {
               className="h-10 w-10 rounded-full"
             />
             <div>
-              <p>@{user.username}</p>
+              <p className="text-sm">@{user.username}</p>
             </div>
           </Link>
         ) : (

@@ -24,6 +24,8 @@ export const getCurrentUser: () => Promise<
   AxiosResponse<{ result: TUser }>
 > = () => API.get("/user");
 
+export const getUserById = (userId: string) => API.get(`/user/${userId}`);
+
 export const savePost = (savedPostsList: string[]) =>
   API.put("/user/save-post", { savedPostsList });
 

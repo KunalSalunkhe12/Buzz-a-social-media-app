@@ -1,7 +1,63 @@
-import React from "react";
+import GridPostList from "@/components/shared/GridPostList";
+import Loader from "@/components/shared/Loader";
+import { useUserContext } from "@/context/user/UserContext";
+import { useGetUserById } from "@/lib/react-query/queries";
+import { Link, useParams } from "react-router-dom";
 
 const Profile = () => {
-  return <div>Profile</div>;
+  const { id } = useParams();
+  const { user } = useUserContext();
+  const { data: currentUser, isPending, isSuccess } = useGetUserById(id || "");
+  console.log(user);
+
+  return (
+    <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
+      <div className="w-full md:w-1/2 flex flex-col gap-10">
+        {isPending && <Loader />}
+        {isSuccess && (
+          <>
+            <div className="flex justify-between items-center">
+              <div className="flex gap-4">
+                <img
+                  className="md:w-20"
+                  src={
+                    currentUser.imageUrl
+                      ? currentUser.imageUrl
+                      : "/assets/icons/profile-placeholder.svg"
+                  }
+                  alt="profile picture"
+                />
+                <div className="flex flex-col gap-2">
+                  <p className="text-lg md:text-2xl font-semibold">
+                    {currentUser.name}
+                  </p>
+                  <p className="text-sm text-slate-500">
+                    @{currentUser.username}
+                  </p>
+                  <p className="text-xs md:text-sm">{currentUser.bio}</p>
+                </div>
+              </div>
+              {user._id === currentUser._id && (
+                <Link to={"/"}>
+                  <img
+                    src="/assets/icons/edit.svg"
+                    alt="edit post"
+                    className="h-5 w-5"
+                  />
+                </Link>
+              )}
+            </div>
+            <hr />
+            <div className="flex gap-2 items-center">
+              <img src="/assets/icons/posts.svg" alt="posts" />
+              <h2>Posts</h2>
+            </div>
+            {isSuccess && <GridPostList posts={currentUser.posts} />}
+          </>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Profile;
