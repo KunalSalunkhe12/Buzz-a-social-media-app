@@ -5,9 +5,11 @@ import { sidebarLinks } from "@/constants";
 import { TNavLink } from "@/types";
 import { Button } from "../ui/button";
 import Loader from "./Loader";
+import { useGetCurrentUser } from "@/lib/react-query/queries";
 
 const LeftSideBar = () => {
-  const { user, removeToken, isLoading } = useUserContext();
+  const { removeToken } = useUserContext();
+  const { data: user, isPending, isSuccess } = useGetCurrentUser();
   const { pathname } = useLocation();
 
   return (
@@ -16,12 +18,16 @@ const LeftSideBar = () => {
         <Link to="/">
           <p className="text-secondary font-bold text-2xl">Buzz!</p>
         </Link>
-        {!isLoading ? (
+        {!isPending && isSuccess ? (
           <Link to={`/profile/${user._id}`} className="flex gap-2 items-center">
             <img
-              src="/assets/icons/profile-placeholder.svg"
+              src={
+                user.imageUrl
+                  ? user.imageUrl
+                  : "/assets/icons/profile-placeholder.svg"
+              }
               alt="profile"
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 rounded-full object-cover"
             />
             <div>
               <p className="text-sm">@{user.username}</p>

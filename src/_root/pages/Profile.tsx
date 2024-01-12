@@ -18,7 +18,7 @@ const Profile = () => {
             <div className="flex justify-between items-center">
               <div className="flex gap-4">
                 <img
-                  className="md:w-20"
+                  className="md:w-24 md:h-24 rounded-full object-cover"
                   src={
                     currentUser.imageUrl
                       ? currentUser.imageUrl

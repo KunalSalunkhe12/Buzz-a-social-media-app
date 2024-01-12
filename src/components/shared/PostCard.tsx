@@ -49,9 +49,13 @@ const PostCard = ({ post }: PostCardProps) => {
             className="flex items-center gap-4"
           >
             <img
-              src="/assets/icons/profile-placeholder.svg"
+              src={
+                post.creator.imageUrl
+                  ? post.creator.imageUrl
+                  : "/assets/icons/profile-placeholder.svg"
+              }
               alt="Profile"
-              className="h-10 w-10"
+              className="h-10 w-10 rounded-full object-cover"
             />
             <div className="flex flex-col">
               <div className="flex gap-2 items-center">
@@ -85,7 +89,7 @@ const PostCard = ({ post }: PostCardProps) => {
         </div>
         <div className=" h-72 lg:h-[380px] border-2 rounded-md mt-2">
           <img
-            className="w-full h-full object-contain object-center"
+            className="w-full h-full object-contain"
             src={post.imageUrl}
             alt="post image"
           />

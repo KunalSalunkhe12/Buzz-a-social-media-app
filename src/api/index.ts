@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { TNewPost, TNewUser, TUpdatePost, TUser } from "@/types";
+import { TNewPost, TNewUser, TUpdatePost, TUpdateUser, TUser } from "@/types";
 
 const url = import.meta.env.VITE_API_URL;
 
@@ -28,6 +28,11 @@ export const getUserById = (userId: string) => API.get(`/user/${userId}`);
 
 export const savePost = (savedPostsList: string[]) =>
   API.put("/user/save-post", { savedPostsList });
+
+export const updateProfile = (userData: TUpdateUser) =>
+  API.put("/user/update", userData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 
 // Post
 export const getRecentPosts = () => API.get("/post/recent");

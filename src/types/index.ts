@@ -10,8 +10,17 @@ export type TUser = {
   email: string;
   bio: string;
   imageUrl: string;
+  imageId: string;
   likedPosts: string[];
   savedPosts: TPost[];
+};
+
+export type TUpdateUser = {
+  name: string;
+  username: string;
+  profile: File;
+  bio: string;
+  imageId: string;
 };
 
 export type TNavLink = {
@@ -21,7 +30,7 @@ export type TNavLink = {
 };
 
 export type TNewPost = z.infer<typeof PostSchema>;
-export type TUpdatePost = TNewPost & { imageId?: string };
+export type TUpdatePost = TNewPost;
 
 export type TPost = {
   _id: string;

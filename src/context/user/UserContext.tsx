@@ -13,6 +13,7 @@ const INITIAL_USER_PROFILE = {
   email: "",
   bio: "",
   imageUrl: "",
+  imageId: "",
   likedPosts: [],
   savedPosts: [],
 };
@@ -64,6 +65,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           username: user.username,
           email: user.email,
           imageUrl: user.imageUrl,
+          imageId: user.imageId,
           bio: user.bio,
           likedPosts: user.likedPosts,
           savedPosts: user.savedPosts,

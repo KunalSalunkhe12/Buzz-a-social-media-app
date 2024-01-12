@@ -34,6 +34,6 @@ export const userSchema = z.object({
     .min(2, { message: "Username must be at least 2 characters." })
     .max(20, { message: "Username must be at most 20 characters." })
     .toLowerCase(),
-  image: z.custom<File>(),
+  profile: z.custom<File>(),
   bio: z.string().max(2200, "Maximum 2200 characters"),
 });

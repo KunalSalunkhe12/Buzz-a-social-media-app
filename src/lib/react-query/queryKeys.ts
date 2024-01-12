@@ -8,4 +8,5 @@ export enum QUERY_KEYS {
   SEARCH_POSTS = "searchPosts",
   DELETE_POST = "deletePost",
   GET_USER_POSTS = "getUserPosts",
+  UPDATE_PROFILE = "updateProfile",
 }

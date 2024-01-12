@@ -4,7 +4,14 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { TNewPost, TNewUser, TPost, TUpdatePost, TUser } from "@/types";
+import {
+  TNewPost,
+  TNewUser,
+  TPost,
+  TUpdatePost,
+  TUpdateUser,
+  TUser,
+} from "@/types";
 import {
   createPost,
   createUserAccount,
@@ -19,6 +26,7 @@ import {
   searchPosts,
   signInAccount,
   updatePost,
+  updateProfile,
 } from "@/api";
 import { QUERY_KEYS } from "./queryKeys";
 
@@ -53,6 +61,18 @@ export const useGetUserById = (userId: string) => {
     queryFn: async () => {
       const { data } = await getUserById(userId);
       return data.result as TUser & { posts: TPost[] };
+    },
+  });
+};
+
+export const useUpdateProfile = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (userData: TUpdateUser) => updateProfile(userData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_CURRENT_USER],
+      });
     },
   });
 };

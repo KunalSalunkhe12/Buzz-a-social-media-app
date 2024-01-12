@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useUserContext } from "@/context/user/UserContext";
+import { useGetCurrentUser } from "@/lib/react-query/queries";
+import Loader from "./Loader";
 
 const TopBar = () => {
-  const { user, removeToken } = useUserContext();
+  const { removeToken } = useUserContext();
+  const { data: user, isPending, isSuccess } = useGetCurrentUser();
   return (
     <section className="sticky top-0 flex md:hidden justify-between items-center p-2">
       <Link to="/">
@@ -21,13 +24,20 @@ const TopBar = () => {
             alt="logout"
           />
         </Button>
-        <Link to={`/profile/${user._id}`}>
-          <img
-            src="/assets/icons/profile-placeholder.svg"
-            alt="profile"
-            className="h-5 w-5 rounded-full"
-          />
-        </Link>
+        {isPending && <Loader />}
+        {isSuccess && (
+          <Link to={`/profile/${user._id}`}>
+            <img
+              src={
+                user.imageUrl
+                  ? user.imageUrl
+                  : "/assets/icons/profile-placeholder.svg"
+              }
+              alt="profile"
+              className="h-5 w-5 rounded-full object-cover"
+            />
+          </Link>
+        )}
       </div>
     </section>
   );
