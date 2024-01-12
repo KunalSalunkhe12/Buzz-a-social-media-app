@@ -23,7 +23,8 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
   const [savedPosts, setSavedPosts] = useState<string[]>([]);
 
   useEffect(() => {
-    currentUser && setSavedPosts(currentUser?.savedPosts);
+    const savedPostList = currentUser?.savedPosts.map((post) => post._id);
+    savedPostList && setSavedPosts(savedPostList);
   }, [currentUser]);
 
   const handleLikePost = () => {

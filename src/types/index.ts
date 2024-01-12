@@ -11,7 +11,7 @@ export type TUser = {
   bio: string;
   imageUrl: string;
   likedPosts: string[];
-  savedPosts: string[];
+  savedPosts: TPost[];
 };
 
 export type TNavLink = {
