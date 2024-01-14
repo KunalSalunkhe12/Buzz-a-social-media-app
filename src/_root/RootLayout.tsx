@@ -12,7 +12,7 @@ const RootLayout = () => {
         <>
           <TopBar />
 
-          <section className="flex flex-1 md:max-h-screen">
+          <section className="flex flex-1 max-h-screen">
             <LeftSideBar />
             <div className="flex w-full justify-center p-5 md:py-10 box-border">
               <div className="w-full md:w-1/2 flex flex-col gap-8 overflow-y-auto custom-scrollbar">
