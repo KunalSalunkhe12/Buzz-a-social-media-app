@@ -13,7 +13,7 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-// User
+// --------- USer Api routes --------//
 export const createUserAccount = (userData: TNewUser) =>
   API.post("/user/signup", userData);
 
@@ -34,24 +34,24 @@ export const updateProfile = (userData: TUpdateUser) =>
     headers: { "Content-Type": "multipart/form-data" },
   });
 
-// Post
+// --------- Post Api routes --------//
+export const createPost = (postData: TNewPost) =>
+  API.post("/post", postData, {
+    headers: { "content-type": "multipart/form-data" },
+  });
+
 export const getRecentPosts = () => API.get("/post/recent");
 
 export const getPosts = (pageParam: number) =>
   API.get(`/post?page=${pageParam}`);
 
-export const createPost = (postData: TNewPost) =>
-  API.post("/post", postData, {
-    headers: { "content-type": "multipart/form-data" },
-  });
+export const getPostById = (postId?: string) => API.get(`/post/${postId}`);
 
 export const searchPosts = (searchQuery: string) =>
   API.get(`/search/post?q=${searchQuery}`);
 
 export const likePost = (postId: string, likesList: string[]) =>
   API.put(`post/like/${postId}`, { postId, likesList });
-
-export const getPostById = (postId?: string) => API.get(`/post/${postId}`);
 
 export const updatePost = (postData: TUpdatePost, postId?: string) => {
   return API.put(`/post/${postId}`, postData, {
