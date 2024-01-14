@@ -6,7 +6,11 @@ import PostCard from "@/components/shared/PostCard";
 
 const PostDetails = () => {
   const { id } = useParams();
-  const { data: post, isSuccess, isLoading } = useGetPostById(id);
+  const { data: post, isSuccess, isLoading, isError } = useGetPostById(id);
+
+  if (isError) {
+    throw new Error();
+  }
 
   return (
     <div className="flex flex-1 justify-center items-center">

@@ -35,7 +35,6 @@ const UpdateProfile = () => {
   });
 
   function onSubmit(values: z.infer<typeof userSchema>) {
-    console.log(values.profile);
     updateProfile(
       { ...values, imageId: user?.imageId || "" },
       {

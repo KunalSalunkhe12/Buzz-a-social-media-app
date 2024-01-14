@@ -7,7 +7,16 @@ import { Link, useParams } from "react-router-dom";
 const Profile = () => {
   const { id } = useParams();
   const { user } = useUserContext();
-  const { data: currentUser, isPending, isSuccess } = useGetUserById(id || "");
+  const {
+    data: currentUser,
+    isPending,
+    isSuccess,
+    isError,
+  } = useGetUserById(id || "");
+
+  if (isError) {
+    throw new Error();
+  }
 
   return (
     <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">

@@ -1,3 +1,4 @@
+import Loader from "@/components/shared/Loader";
 import PostForm from "@/components/shared/PostForm";
 import { useGetPostById } from "@/lib/react-query/queries";
 import { useParams } from "react-router-dom";
@@ -6,10 +7,6 @@ const EditPost = () => {
   const { id } = useParams();
 
   const { data: post, isPending: isGettingPost } = useGetPostById(id);
-
-  if (isGettingPost) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
@@ -22,6 +19,7 @@ const EditPost = () => {
           />
           <h2 className="text-sm md:text-xl font-semibold">Edit Post</h2>
         </div>
+        {isGettingPost && <Loader />}
         <PostForm post={post} action="Update" />
       </div>
     </div>

@@ -11,7 +11,9 @@ const Home = () => {
     isSuccess,
   } = useGetRecentPost();
 
-  if (isPostError) return <p>Error</p>;
+  if (isPostError) {
+    throw new Error();
+  }
 
   return (
     <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">

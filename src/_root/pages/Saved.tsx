@@ -3,7 +3,12 @@ import Loader from "@/components/shared/Loader";
 import { useGetCurrentUser } from "@/lib/react-query/queries";
 
 const Saved = () => {
-  const { data: user, isSuccess, isPending } = useGetCurrentUser();
+  const { data: user, isSuccess, isPending, isError } = useGetCurrentUser();
+
+  if (isError) {
+    throw new Error();
+  }
+
   return (
     <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
       <div className="w-full md:w-1/2 flex flex-col gap-10">
