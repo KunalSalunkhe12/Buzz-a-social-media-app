@@ -7,7 +7,7 @@ import TopBar from "@/components/shared/TopBar";
 const RootLayout = () => {
   const { token } = useUserContext();
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col max-h-screen">
       {token ? (
         <>
           <TopBar />
