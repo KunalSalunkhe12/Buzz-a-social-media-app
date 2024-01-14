@@ -53,6 +53,7 @@ const Explore = () => {
         </div>
         <div className="mt-2 md:mt-5">
           <p>Popular today</p>
+          {/* Check if search value exists, based on it render search posts or all posts */}
           {debouncedValue
             ? isSearchSuccess && (
                 <PaginatedPostList
