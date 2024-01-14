@@ -16,6 +16,7 @@ const Explore = () => {
     hasNextPage,
     isFetchingNextPage,
     isPending: isLoadingPosts,
+    error: getPostsError,
   } = useGetPosts();
 
   const {
@@ -25,7 +26,13 @@ const Explore = () => {
     hasNextPage: hasNextSearchPage,
     isFetchingNextPage: isFetchingNextSearchPage,
     isPending: isLoadingSearchPosts,
+    error: searchPostsError,
   } = useSearchPosts(debouncedValue);
+
+  if (getPostsError || searchPostsError) {
+    if (getPostsError) throw Error(getPostsError.message);
+    else throw Error(searchPostsError?.message);
+  }
 
   return (
     <div className=" flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
