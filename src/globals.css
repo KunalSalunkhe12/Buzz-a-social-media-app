@@ -6,7 +6,7 @@
 @layer base {
   /* shadcn ui */
   * {
-    @apply border-border;
+    @apply border-border box-border;
   }
   body {
     @apply bg-background text-foreground font-inter;

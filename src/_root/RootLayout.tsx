@@ -7,14 +7,18 @@ import TopBar from "@/components/shared/TopBar";
 const RootLayout = () => {
   const { token } = useUserContext();
   return (
-    <div className="w-full h-full md:flex">
+    <div className="">
       {token ? (
         <>
           <TopBar />
-          <LeftSideBar />
 
-          <section className="flex flex-1 p-4 md:p-10 h-screen">
-            <Outlet />
+          <section className="flex h-screen">
+            <LeftSideBar />
+            <div className="flex flex-1 justify-center overflow-y-auto custom-scrollbar pt-5 pb-24 box-border">
+              <div className="w-full md:w-1/2 flex flex-col gap-5">
+                <Outlet />
+              </div>
+            </div>
           </section>
 
           <BottomBar />

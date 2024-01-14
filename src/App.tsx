@@ -13,7 +13,7 @@ function App() {
     <ThemeProvider>
       <QueryProvider>
         <UserProvider>
-          <main className="h-screen">
+          <main>
             <Outlet />
             <Toaster />
           </main>
