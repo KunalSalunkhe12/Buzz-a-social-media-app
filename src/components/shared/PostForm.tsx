@@ -44,8 +44,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
       updatePost(
         { postData: values, postId: post?._id },
         {
-          onSuccess(data) {
-            console.log(data);
+          onSuccess() {
             return navigate(-1);
           },
           onError(error) {
