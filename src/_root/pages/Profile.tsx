@@ -19,52 +19,50 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6 mb-14 md:mb-0">
-      <div className="w-full md:w-1/2 flex flex-col gap-10">
-        {isPending && <Loader />}
-        {isSuccess && (
-          <>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-4">
-                <img
-                  className="w-12 h-12 md:w-24 md:h-24 rounded-full object-cover"
-                  src={
-                    currentUser.imageUrl
-                      ? currentUser.imageUrl
-                      : "/assets/icons/profile-placeholder.svg"
-                  }
-                  alt="profile picture"
-                />
-                <div className="flex flex-col gap-1 md:gap-2">
-                  <p className="text-sm md:text-2xl font-semibold">
-                    {currentUser.name}
-                  </p>
-                  <p className="text-xm text-slate-500">
-                    @{currentUser.username}
-                  </p>
-                  <p className="text-xs md:text-sm">{currentUser.bio}</p>
-                </div>
+    <>
+      {isPending && <Loader />}
+      {isSuccess && (
+        <>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-4">
+              <img
+                className="w-12 h-12 md:w-24 md:h-24 rounded-full object-cover"
+                src={
+                  currentUser.imageUrl
+                    ? currentUser.imageUrl
+                    : "/assets/icons/profile-placeholder.svg"
+                }
+                alt="profile picture"
+              />
+              <div className="flex flex-col gap-1 md:gap-2">
+                <p className="text-sm md:text-2xl font-semibold">
+                  {currentUser.name}
+                </p>
+                <p className="text-xm text-slate-500">
+                  @{currentUser.username}
+                </p>
+                <p className="text-xs md:text-sm">{currentUser.bio}</p>
               </div>
-              {user._id === currentUser._id && (
-                <Link to={`/update-profile/${currentUser._id}`}>
-                  <img
-                    src="/assets/icons/edit.svg"
-                    alt="edit post"
-                    className="h-5 w-5"
-                  />
-                </Link>
-              )}
             </div>
-            <hr />
-            <div className="flex gap-2 items-center">
-              <img src="/assets/icons/posts.svg" alt="posts" />
-              <h2>Posts</h2>
-            </div>
-            {isSuccess && <GridPostList posts={currentUser.posts} />}
-          </>
-        )}
-      </div>
-    </div>
+            {user._id === currentUser._id && (
+              <Link to={`/update-profile/${currentUser._id}`}>
+                <img
+                  src="/assets/icons/edit.svg"
+                  alt="edit post"
+                  className="h-5 w-5"
+                />
+              </Link>
+            )}
+          </div>
+          <hr />
+          <div className="flex gap-2 items-center">
+            <img src="/assets/icons/posts.svg" alt="posts" />
+            <h2>Posts</h2>
+          </div>
+          {isSuccess && <GridPostList posts={currentUser.posts} />}
+        </>
+      )}
+    </>
   );
 };
 

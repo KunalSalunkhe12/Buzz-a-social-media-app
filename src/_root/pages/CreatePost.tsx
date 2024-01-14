@@ -3,7 +3,7 @@ import PostForm from "@/components/shared/PostForm";
 const CreatePost = () => {
   return (
     <>
-      <div className="flex items-center">
+      <div className="flex gap-2 items-center">
         <img
           src="/assets/icons/add-post.svg"
           alt="create post"

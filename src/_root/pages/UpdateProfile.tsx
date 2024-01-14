@@ -56,81 +56,86 @@ const UpdateProfile = () => {
   }
 
   return (
-    <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
-      <div className="w-full md:w-1/2 flex flex-col gap-10">
+    <>
+      <div className="flex gap-2 items-center">
+        <img
+          src="/assets/icons/edit.svg"
+          alt="create post"
+          className="w-5 h-5 invert brightness-0 transition"
+        />
         <h2 className="text-sm md:text-xl font-semibold">Update Profile</h2>
-        {isSuccess ? (
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="profile"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <ProfileUploader
-                        mediaUrl={user?.imageUrl}
-                        fieldChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input className="bg-slate-800" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input className="bg-slate-800" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="bio"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Bio</FormLabel>
-                    <FormControl>
-                      <Input className="bg-slate-800" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex items-center gap-4 justify-end">
-                <Button variant="outline" onClick={() => navigate(-1)}>
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={isPending}>
-                  {isPending ? <Loader /> : "Update"}
-                </Button>
-              </div>
-            </form>
-          </Form>
-        ) : (
-          <Loader />
-        )}
       </div>
-    </div>
+      {isSuccess ? (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="profile"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <ProfileUploader
+                      mediaUrl={user?.imageUrl}
+                      fieldChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input className="bg-slate-800" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input className="bg-slate-800" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="bio"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Bio</FormLabel>
+                  <FormControl>
+                    <Input className="bg-slate-800" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex items-center gap-4 justify-end">
+              <Button variant="outline" onClick={() => navigate(-1)}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={isPending}>
+                {isPending ? <Loader /> : "Update"}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 };
 

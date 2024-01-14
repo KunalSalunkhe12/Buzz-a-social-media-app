@@ -13,11 +13,9 @@ const PostDetails = () => {
   }
 
   return (
-    <div className="flex flex-1 justify-center items-center">
-      <div className="w-full md:w-1/2 flex flex-col">
-        {isLoading && <Loader />}
-        {isSuccess && <PostCard post={post} />}
-      </div>
+    <div>
+      {isLoading && <Loader />}
+      {isSuccess && <PostCard post={post} />}
     </div>
   );
 };
