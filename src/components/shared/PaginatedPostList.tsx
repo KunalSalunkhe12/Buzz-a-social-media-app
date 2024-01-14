@@ -29,7 +29,7 @@ const PaginatedPostList = ({
   });
 
   return (
-    <div className="mt-5">
+    <div className="my-5">
       <div>{isLoading && <Loader />}</div>
       <GridPostList posts={posts} />
       <div ref={loadMoreRef} className={!hasNextPage ? "hidden" : ""}>

@@ -19,15 +19,15 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
+    <div className="flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6 mb-14 md:mb-0">
       <div className="w-full md:w-1/2 flex flex-col gap-10">
         {isPending && <Loader />}
         {isSuccess && (
           <>
             <div className="flex justify-between items-center">
-              <div className="flex gap-4">
+              <div className="flex items-center gap-4">
                 <img
-                  className="md:w-24 md:h-24 rounded-full object-cover"
+                  className="w-12 h-12 md:w-24 md:h-24 rounded-full object-cover"
                   src={
                     currentUser.imageUrl
                       ? currentUser.imageUrl
@@ -35,11 +35,11 @@ const Profile = () => {
                   }
                   alt="profile picture"
                 />
-                <div className="flex flex-col gap-2">
-                  <p className="text-lg md:text-2xl font-semibold">
+                <div className="flex flex-col gap-1 md:gap-2">
+                  <p className="text-sm md:text-2xl font-semibold">
                     {currentUser.name}
                   </p>
-                  <p className="text-sm text-slate-500">
+                  <p className="text-xm text-slate-500">
                     @{currentUser.username}
                   </p>
                   <p className="text-xs md:text-sm">{currentUser.bio}</p>

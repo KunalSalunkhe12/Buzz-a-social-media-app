@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { ThemeProvider } from "./context/theme/ThemeContext";
 import QueryProvider from "./lib/react-query/QueryProvider";
@@ -18,7 +18,7 @@ function App() {
             <Toaster />
           </main>
         </UserProvider>
-        <ReactQueryDevtools />
+        {/* <ReactQueryDevtools /> */}
       </QueryProvider>
     </ThemeProvider>
   );

@@ -35,7 +35,7 @@ const Explore = () => {
   }
 
   return (
-    <div className=" flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6">
+    <div className=" flex flex-1 justify-center overflow-y-scroll custom-scrollbar pb-6 mb-14 md:mb-0">
       <div className="w-full lg:w-1/2 flex flex-col gap-5">
         <h2 className="text-sm md:text-xl font-semibold">Search Posts</h2>
         <div className="flex gap-1 items-center bg-slate-800 rounded-md">
