@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App.tsx";
 import {
-  AllUsers,
   CreatePost,
   EditPost,
   Explore,
@@ -52,10 +51,6 @@ const router = createBrowserRouter([
           {
             path: "/saved",
             element: <Saved />,
-          },
-          {
-            path: "/all-users",
-            element: <AllUsers />,
           },
           {
             path: "/create-post",
