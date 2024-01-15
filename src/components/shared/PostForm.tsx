@@ -142,7 +142,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           )}
         />
         <div className="flex items-center gap-4 justify-end">
-          <Button variant="outline" onClick={() => navigate(-1)}>
+          <Button type="button" variant="outline" onClick={() => navigate(-1)}>
             Cancel
           </Button>
           <Button type="submit" disabled={isCreatingPost || isUpdatingPost}>
