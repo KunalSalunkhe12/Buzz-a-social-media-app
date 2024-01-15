@@ -13,10 +13,11 @@ const LeftSideBar = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className="w-[230px] fixed left-0 top-0 h-full hidden md:flex flex-col justify-between p-6">
-      <div className="flex flex-col gap-11">
-        <Link to="/">
-          <p className="text-secondary font-bold text-2xl">Buzz!</p>
+    <nav className="w-[230px] fixed left-0 top-0 h-full hidden md:flex flex-col justify-between px-6 py-10">
+      <div className="flex flex-col gap-8">
+        <Link to="/" className="flex items-center gap-2">
+          <img src="/assets/icons/favicon.png" alt="Logo" className="h-8 w-8" />
+          <p className="font-bold text-2xl">Buzz!</p>
         </Link>
         {!isPending && isSuccess ? (
           <Link to={`/profile/${user._id}`} className="flex gap-2 items-center">

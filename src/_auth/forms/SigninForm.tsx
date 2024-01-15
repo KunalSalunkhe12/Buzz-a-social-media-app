@@ -66,7 +66,14 @@ const SignupForm = () => {
     <Form {...form}>
       <div className="sm:w-[420px]">
         <div className="text-center">
-          <p className="text-secondary font-bold text-xl md:text-2xl">Buzz!</p>
+          <div className="flex items-center justify-center gap-2 my-4">
+            <img
+              src="/assets/icons/favicon.png"
+              alt="Logo"
+              className="h-8 w-8"
+            />
+            <p className="font-bold text-2xl">Buzz!</p>
+          </div>
           <h2 className="text-lg md:text-xl font-bold">
             Sign In to your Account
           </h2>
