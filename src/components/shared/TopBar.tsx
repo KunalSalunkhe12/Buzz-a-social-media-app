@@ -8,7 +8,7 @@ const TopBar = () => {
   const { removeToken } = useUserContext();
   const { data: user, isPending, isSuccess } = useGetCurrentUser();
   return (
-    <section className="sticky bg-black top-0 flex md:hidden justify-between items-center p-2 z-10">
+    <section className="sticky bg-black top-0 flex md:hidden justify-between items-center px-6 py-2 z-10">
       <Link to="/">
         <p className="font-bold text-xl text-secondary">Buzz</p>
       </Link>
@@ -34,7 +34,7 @@ const TopBar = () => {
                   : "/assets/icons/profile-placeholder.svg"
               }
               alt="profile"
-              className="h-5 w-5 rounded-full object-cover"
+              className="h-6 w-6 rounded-full object-cover"
             />
           </Link>
         )}
