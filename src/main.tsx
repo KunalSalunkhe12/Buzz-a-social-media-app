@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -12,10 +13,10 @@ import {
   Saved,
   UpdateProfile,
 } from "./_root/pages";
-import AuthLayout from "./_auth/AuthLayout";
-import SigninForm from "./_auth/forms/SigninForm";
-import SignupForm from "./_auth/forms/SignupForm";
-import RootLayout from "./_root/RootLayout";
+const AuthLayout = lazy(() => import("./_auth/AuthLayout"));
+const SigninForm = lazy(() => import("./_auth/forms/SigninForm"));
+const SignupForm = lazy(() => import("./_auth/forms/SignupForm"));
+const RootLayout = lazy(() => import("./_root/RootLayout"));
 import Error from "./components/shared/Error.tsx";
 
 const router = createBrowserRouter([
