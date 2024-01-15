@@ -50,7 +50,7 @@ const FileUploader = ({ fieldChange }: FileUploaderProps) => {
           <p className="text-slate-500 text-xs mb-6">SVG, PNG, JPG</p>
 
           <p className="bg-slate-500 p-2 rounded-md hover:cursor-pointer">
-            Select from computer
+            Select
           </p>
         </div>
       )}
