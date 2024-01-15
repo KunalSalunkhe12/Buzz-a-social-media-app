@@ -7,20 +7,16 @@ import { UserProvider } from "./context/user/UserContext";
 import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
-import { Suspense } from "react";
-import ComponentLoader from "./components/shared/ComponentLoader";
 
 function App() {
   return (
     <ThemeProvider>
       <QueryProvider>
         <UserProvider>
-          <Suspense fallback={<ComponentLoader />}>
-            <main>
-              <Outlet />
-              <Toaster />
-            </main>
-          </Suspense>
+          <main>
+            <Outlet />
+            <Toaster />
+          </main>
         </UserProvider>
         {/* <ReactQueryDevtools /> */}
       </QueryProvider>

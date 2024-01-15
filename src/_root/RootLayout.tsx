@@ -3,6 +3,8 @@ import { Outlet, Navigate } from "react-router-dom";
 import BottomBar from "@/components/shared/BottomBar";
 import LeftSideBar from "@/components/shared/LeftSideBar";
 import TopBar from "@/components/shared/TopBar";
+import { Suspense } from "react";
+import ComponentLoader from "@/components/shared/ComponentLoader";
 
 const RootLayout = () => {
   const { token } = useUserContext();
@@ -16,7 +18,9 @@ const RootLayout = () => {
             <LeftSideBar />
             <div className="flex justify-center px-5 pt-5 pb-20 md:py-10 ">
               <div className="w-full md:w-1/2 flex flex-col gap-8">
-                <Outlet />
+                <Suspense fallback={<ComponentLoader />}>
+                  <Outlet />
+                </Suspense>
               </div>
             </div>
           </section>

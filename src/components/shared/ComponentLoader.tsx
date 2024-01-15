@@ -1,6 +1,9 @@
+import LeftSideBar from "./LeftSideBar";
+
 const ComponentLoader = () => {
   return (
     <div className="h-screen flex justify-center items-center">
+      <LeftSideBar />
       <svg
         aria-hidden="true"
         className="inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
