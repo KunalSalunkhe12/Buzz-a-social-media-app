@@ -7,14 +7,14 @@ import TopBar from "@/components/shared/TopBar";
 const RootLayout = () => {
   const { token } = useUserContext();
   return (
-    <div className="flex flex-col h-screen box-border overflow-y-auto custom-scrollbar">
+    <div className="flex flex-col h-screen overflow-y-auto custom-scrollbar">
       {token ? (
         <>
           <TopBar />
 
-          <section className="md:pl-[250px]">
+          <section className="md:pl-[230px]">
             <LeftSideBar />
-            <div className="flex justify-center p-5 md:py-10 ">
+            <div className="flex justify-center px-5 pt-5 pb-20 md:py-10 ">
               <div className="w-full md:w-1/2 flex flex-col gap-8">
                 <Outlet />
               </div>
