@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCreateUserAccount } from "@/lib/react-query/queries";
 import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/user/UserContext";
+import axios, { AxiosError } from "axios";
 
 const SignupForm = () => {
   const { toast } = useToast();
@@ -46,11 +47,17 @@ const SignupForm = () => {
         });
         navigate("/");
       },
-      onError() {
-        toast({
-          title: "Couldn't Sign up. Please try again.",
-          variant: "destructive",
-        });
+      onError(error: AxiosError | Error) {
+        if (axios.isAxiosError(error)) {
+          toast({
+            title: error.response?.data.message,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Couldn't Sign in. Please try again.",
+          });
+        }
       },
     });
   };
