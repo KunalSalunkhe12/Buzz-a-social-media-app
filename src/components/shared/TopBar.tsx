@@ -9,8 +9,9 @@ const TopBar = () => {
   const { data: user, isPending, isSuccess } = useGetCurrentUser();
   return (
     <section className="sticky bg-black top-0 flex md:hidden justify-between items-center px-6 py-2 z-10">
-      <Link to="/">
-        <p className="font-bold text-xl text-secondary">Buzz</p>
+      <Link to="/" className="flex items-center gap-2">
+        <img src="/assets/icons/favicon.png" alt="Logo" className="h-5 w-5" />
+        <p className="font-bold">Buzz!</p>
       </Link>
       <div className="flex justify-center items-center">
         <Button
