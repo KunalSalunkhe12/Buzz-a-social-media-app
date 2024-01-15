@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+# Buzz - social media app🧑‍💻🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description 📝
 
-Currently, two official plugins are available:
+Buzz, a dynamic social media experience built with the power of React and TypeScript that has a nice look and lots of features. Easily create and explore posts, and enjoy a strong authentication system and quick data fetching using React Query for a smooth user experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Demo
 
-## Expanding the ESLint configuration
+**Live** : https://buzz-social.netlify.app/
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features 🧑‍💻
 
-- Configure the top-level `parserOptions` property like this:
+- Authentication
+- Explore Page
+- Like and Save Functionality
+- Detailed Post Page
+- Profile Page
+- Browse Other Users
+- Create Post Page
+- Edit Post Functionality
+- Responsive UI with Bottom Bar
+- Lazy Loading
+- Infinite Scrolling
+- React Query Integration Incorporate the React Query (Tanstack Query) data fetching library for, Auto caching to enhance performance, Parallel queries for efficient data retrieval, First-class Mutations, etc
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Frontend Tech Stack ⚙️
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- React.js
+- React Query
+- TypeScript
+- Shadcn
+- Tailwind CSS
+
+## Backend Tech Stack ⚙️
+
+- TypeScript
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+
+## Note
+
+**Server Respository** : https://github.com/KunalSalunkhe12/Buzz-server
